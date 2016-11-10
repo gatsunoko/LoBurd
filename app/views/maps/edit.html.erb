@@ -1,0 +1,21 @@
+<h1>Editing map</h1>
+
+<%= render 'form', map: @map %>
+
+<%= link_to 'Show', @map %> |
+<%= link_to 'Back', maps_path %>
+
+<div style='width: 800px;'>
+	<div id="map" style='width :800px; height: 400px;'></div>
+</div>
+
+<%= render 'gmap_display' %>
+
+<script>
+var map = <%= raw @map.to_json %>
+var markers = <%= raw @hash.to_json %>
+var options = {
+  draggable: true
+}
+gmap(markers, map, options)
+</script>

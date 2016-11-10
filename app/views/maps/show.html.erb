@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @map.title %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @map.address %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @map.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @map.longitude %>
+</p>
+
+<%= link_to 'Edit', edit_map_path(@map) %> |
+<%= link_to 'Back', maps_path %>
+<br>
+<div style='width: 800px;'>
+  <div id="map" style='width :800px; height: 400px;'></div>
+</div>
+
+<%= render 'gmap_display' %>
+
+<script>
+var map = <%= raw @map.to_json %>
+var markers = <%= raw @hash.to_json %>
+var options = {
+  draggable: false
+}
+gmap(markers, map, options)
+</script>
