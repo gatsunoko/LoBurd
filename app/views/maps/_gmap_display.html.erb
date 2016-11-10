@@ -16,8 +16,8 @@ function gmap(markers, user, {draggable = false}){
 	      var lat = event.latLng.lat();
 	      var lng = event.latLng.lng();
 	      //console.log('Marker with id: ' + json.id + ' dropped hat lat: ' + lat + ' and lng: ' + lng)
-	      document.getElementById("user_latitude").value = event.latLng.lat();
-	      document.getElementById("user_longitude").value = event.latLng.lng();
+	      document.getElementById("map_latitude").value = event.latLng.lat();
+	      document.getElementById("map_longitude").value = event.latLng.lng();
 	    });
 	  });
 	});

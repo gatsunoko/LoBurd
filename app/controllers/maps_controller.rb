@@ -11,8 +11,8 @@ class MapsController < ApplicationController
 			marker.json({title: map.title})
 			marker.picture({
 			  url: ActionController::Base.helpers.asset_path("puyo.png"),
-			  width: "35",
-			  height: "35"
+			  width: "26",
+			  height: "26"
 			})
 		end
 	end
@@ -72,8 +72,8 @@ class MapsController < ApplicationController
 	    marker.json({title: map.title})
 	    marker.picture({
 	      url: ActionController::Base.helpers.asset_path("puyo.png"),
-	      width: "25",
-	      height: "25"
+	      width: "26",
+	      height: "26"
 	    })
 	  end
 	end

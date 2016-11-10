@@ -1,12 +1,17 @@
 <div style='width: 800px;'>
-  <div id="map" style='width: 800px; height: 400px;'></div>
+  <div id="map" style='width: 800px; height: 600px;'></div>
 </div>
 
 <script type="text/javascript">
+	var mapOptions = { mapTypeControl: google.maps.mapTypeControl = false,
+					   streetViewControl: google.maps.streetViewControl = false };
     handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+    handler.buildMap({ provider: mapOptions, internal: {id: 'map'}}, function(){
       markers = handler.addMarkers(<%=raw @hash.to_json %>);
       handler.bounds.extendWith(markers);
       handler.fitMapToBounds();
     });
 </script>
+
+<%= link_to '新しいマップを登録', new_map_path %>
+
