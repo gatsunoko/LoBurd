@@ -1,5 +1,6 @@
 class Map < ApplicationRecord
-	if :latitude.nil? && :longitude.nil?
+	Geocoder.configure(language: :ja)
+	if :latitude.nil? || :longitude.nil?
 		geocoded_by :address
 		after_validation :geocode
 	else
