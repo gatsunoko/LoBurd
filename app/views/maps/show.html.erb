@@ -1,5 +1,7 @@
-<p id="notice"><%= notice %></p>
-
+<p id="notice"><%#= notice %></p>
+<% unless @map.user_id.nil? %>
+  <%= @map.user.username %>くんが登録した
+<% end -%>
 <p>
   <strong>Title:</strong>
   <%= @map.title %>

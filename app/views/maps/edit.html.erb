@@ -1,5 +1,7 @@
 <h1>Editing map</h1>
-
+<% unless @map.user_id.nil? %>
+	<%= @map.user.username %>くん
+<% end -%>
 <%= render 'form', map: @map %>
 
 <%= link_to 'Show', @map %> |
@@ -18,5 +20,4 @@ var options = {
   draggable: true
 }
 gmap(markers, map, options)
-</script>
 </script>

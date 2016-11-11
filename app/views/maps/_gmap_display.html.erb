@@ -1,7 +1,9 @@
 <script>
 function gmap(markers, user, {draggable = false}){
+	var mapOptions = { mapTypeControl: google.maps.mapTypeControl = false,
+					   streetViewControl: google.maps.streetViewControl = false };
 	handler = Gmaps.build('Google');
-	handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+	handler.buildMap({provider: mapOptions, internal: {id: 'map'}}, function(){
 		markers = handler.addMarkers(markers, {draggable: draggable});
 		handler.getMap().setZoom(15);
 		handler.getMap().setCenter(new google.maps.LatLng(user.latitude, user.longitude));

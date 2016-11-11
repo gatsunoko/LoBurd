@@ -1,6 +1,7 @@
 class MapsController < ApplicationController
 	before_action :set_map, only: [:show, :edit, :update, :destroy]
 	before_action :set_marker, only: [:index, :show, :edit]
+	before_action :authenticate_user!, only: [:new, :edit]
 
 	def index
 		@maps = Map.all
@@ -29,7 +30,7 @@ class MapsController < ApplicationController
 
 	def create
     @map = Map.new(map_params)
-
+    @map.user_id = current_user.id
     respond_to do |format|
       if @map.save
         format.html { redirect_to @map, notice: 'map was successfully created.' }
@@ -61,7 +62,7 @@ class MapsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def map_params
-      params.require(:map).permit(:map_id, :title, :address, :latitude, :longitude)
+      params.require(:map).permit(:user_id, :map_id, :title, :address, :latitude, :longitude)
     end
 
 	 def set_marker
