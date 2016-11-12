@@ -12,21 +12,11 @@
   <%= @map.address %>
 </p>
 
-<p>
-  <strong>Latitude:</strong>
-  <%= @map.latitude %>
-</p>
-
-<p>
-  <strong>Longitude:</strong>
-  <%= @map.longitude %>
-</p>
-
 <%= link_to 'Edit', edit_map_path(@map) %> |
 <%= link_to 'Back', maps_path %>
 <br>
 <div style='width: 800px;'>
-  <div id="map" style='width :800px; height: 600px;'></div>
+  <div id="map" style='width :400px; height: 400px;'></div>
 </div>
 
 <%= render 'gmap_display' %>
