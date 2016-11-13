@@ -1,2 +1,18 @@
-<h1>Comments#new</h1>
-<p>Find me in app/views/comments/new.html.erb</p>
+<h1>新規コメント作成</h1>
+<%= form_for(@comment) do |f| %>
+	<div class="field">
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+	</div>
+
+	<div class="field">
+		<%= f.label :text %>
+		<%= f.text_area :text %>
+	</div>
+
+	<%= f.hidden_field :map_id, value: @mapid %>
+
+	<div class="field">
+		<%= f.submit %>
+	</div>
+<% end -%>

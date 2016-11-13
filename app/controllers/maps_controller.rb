@@ -19,10 +19,10 @@ class MapsController < ApplicationController
 	end
 
 	def show
-		p params[:id]
 		@comments = Comment.where( 'map_id = ?', params[:id] ).order(created_at: :desc)
 		#@comments = Comment.all
 		@comment = Comment.new
+		session[:mapid] = @map.id
 	end
 
 	def edit
