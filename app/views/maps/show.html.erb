@@ -31,3 +31,28 @@ gmap(markers, map, options)
 </script>
 
 <%= link_to 'トップへ', maps_path %>
+
+<% @comments.each do |comment| %>
+	<p><strong><%= comment.user.username %></strong>さんのコメント</p>
+	<p><%= comment.title %></p>
+	<p><%= comment.text %></p>
+	<hr>
+<% end -%>
+
+<%= form_for :comment, url: comments_path(@comment), method: :post do |f| %>
+	<div class="field">
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+	</div>
+
+	<div class="field">
+		<%= f.label :textt %>
+		<%= f.text_area :text %>
+	</div>
+
+	<%= f.hidden_field :map_id, value: @map.id %>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+<% end -%>

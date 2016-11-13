@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users
+  	devise_for :users
 	root 'maps#index'
 	resources :users
 	resources :maps
-  get 'homes/index'
+	resources :comments
+  	get 'homes/index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

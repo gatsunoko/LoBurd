@@ -2,10 +2,7 @@ class Map < ApplicationRecord
 	belongs_to :user, optional: true
 
 	Geocoder.configure(language: :ja)
-	p '------------------------------------'
-	p :latitude
-	p :language
-	p :address
+
 	# if :latitude.blank? || :longitude.blank?
 	# 	geocoded_by :address
 	# 	after_validation :geocode
