@@ -33,7 +33,12 @@ gmap(markers, map, options)
 <%= link_to 'トップへ', maps_path %>
 
 <% @comments.each do |comment| %>
-	<p><%= comment.map_id %></p>
+	<p><%#= comment.map_id %></p>
+  <% comment.pictures.each do |picture| %>
+    <p><%= picture.picture_name %></p>
+    <%= image_tag "/docs/" + picture.picture_name %>
+  <% end -%>
+
 	<p><strong><%= comment.user.username %></strong>さんのコメント</p>
 	<p><%= comment.title %></p>
 	<p><%= comment.text %></p>
