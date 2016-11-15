@@ -1,11 +1,5 @@
 <h1>新規コメント作成</h1>
 
-<%= form_tag({ action: :upload_process }, multipart: true) do %>
-	<label>画像ファイルを指定:
-		<%= file_field_tag :picture_name, size: 50 %></label>
-	<%= submit_tag '画像をアップロード' %>
-<% end -%>
-
 <%= form_for(@comment) do |f| %>
 	<div class="field">
 		<%= f.label :title %>
@@ -16,6 +10,10 @@
 		<%= f.label :text %>
 		<%= f.text_area :text %>
 	</div>
+
+	<%= f.fields_for :picture, @comment.pictures, html: { multipart: true } do |sf| %>
+		<label>画像ファイルを指定:<%= sf.file_field :picture_file, size: 50 %></label>
+	<% end -%>
 
 	<%= f.hidden_field :map_id, value: @mapid %>
 
