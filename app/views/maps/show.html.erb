@@ -36,8 +36,7 @@ gmap(markers, map, options)
 	<p><%#= comment.map_id %></p>
 	<p><strong><%= comment.user.username %></strong>さんのコメント</p>
   <% comment.pictures.each do |picture| %>
-    <p><%= picture.picture_name %></p>
-    <%= image_tag "/docs/" + picture.picture_name %>
+    <%= image_tag "/docs/" + picture.picture_name, width: 200 %>
   <% end -%>
 	<p><%= comment.title %></p>
 	<p><%= comment.text %></p>
