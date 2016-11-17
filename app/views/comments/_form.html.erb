@@ -9,22 +9,16 @@
 		<%= f.text_area :text %>
 	</div>
 
-	<% if type == 'new' %>
-		<%= f.fields_for :picture, @comment.pictures, html: { multipart: true } do |sf| %>
-			<label>画像ファイルを指定:<%= sf.file_field :picture_file, size: 50 %></label><br>
-			<label>画像ファイルを指定:<%= sf.file_field :picture_file2, size: 50 %></label>
-		<% end -%>
+	<label>画像ファイルを指定:<%= f.file_field :picture_file, size: 50, multiple: true %></label><br>
 
+	<% if type == 'new' %>
+		
 		<%= f.hidden_field :map_id, value: @mapid %>
 	<% else %>
 			<% @comment.pictures.each do |picture| %>
 				<%= image_tag "/docs/#{ picture.picture_name }", width: 200 %>
 			<% end -%>
 			<br>
-			<%= f.fields_for :picture, @comment.pictures, html: { multipart: true } do |sf| %>
-				<label>画像ファイルを指定:<%= sf.file_field :picture_file, size: 50 %></label><br>
-				<label>画像ファイルを指定:<%= sf.file_field :picture_file2, size: 50 %></label>
-			<% end -%>
 	<% end -%>
 
 	<div class="field">
