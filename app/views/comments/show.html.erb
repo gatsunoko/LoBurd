@@ -1,2 +1,17 @@
 <h1>Comments#show</h1>
-<p>Find me in app/views/comments/show.html.erb</p>
+
+<%= link_to 'スポットページへ戻る', map_path(@comment.map_id) %>
+
+<p>
+  <strong>Title:</strong>
+  <%= @comment.title %>
+</p>
+
+<p>
+  <strong>text:</strong>
+  <%= @comment.text %>
+</p>
+
+<% @comment.pictures.each do |picture| %>
+	<%= image_tag "/docs/#{ picture.picture_name }", width: 200 %>
+<% end -%>
