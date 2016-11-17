@@ -12,8 +12,11 @@
   <%= @map.address %>
 </p>
 
-<%= link_to 'Edit', edit_map_path(@map) %> |
-<%= link_to 'Back', maps_path %>
+<% unless current_user.nil? %>
+  <% if @map.user_id == current_user.id %>
+    <%= link_to 'Edit', edit_map_path(@map) %> |
+  <% end -%>
+<% end -%>
 <br>
 <div style='width: 800px;'>
   <div id="map" style='width :400px; height: 400px;'></div>
@@ -39,13 +42,21 @@ gmap(markers, map, options)
   <p><%= link_to comment.title, comment_path(comment) %></p>
   <p><%= comment.text %></p>
 
+<%
+=begin
+%>
   <% comment.pictures.each do |picture| %>
     <%= image_tag "/docs/" + picture.picture_name, width: 200 %>
   <% end -%>
   <br>
-  <% if comment.user_id == current_user.id %>
-    <%= link_to '編集する', edit_comment_path(comment) %>
-    <%= link_to '削除する', comment_path(comment), method: :delete, data: { confirm: '削除してもいいですか？' } %>
+<%
+=end
+%>
+  <% unless current_user.nil? %>
+    <% if comment.user_id == current_user.id %>
+      <%= link_to '編集する', edit_comment_path(comment) %>
+      <%= link_to '削除する', comment_path(comment), method: :delete, data: { confirm: '削除してもいいですか？' } %>
+    <% end -%>
   <% end -%>
 
 	<hr>

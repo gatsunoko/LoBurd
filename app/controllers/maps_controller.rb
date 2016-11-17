@@ -25,6 +25,9 @@ class MapsController < ApplicationController
 	end
 
 	def edit
+		unless @map.user_id == current_user.id
+			redirect_to map_path(@map)
+		end
 	end
 
 	def new

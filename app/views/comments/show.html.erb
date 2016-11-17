@@ -15,3 +15,11 @@
 <% @comment.pictures.each do |picture| %>
 	<%= image_tag "/docs/#{ picture.picture_name }", width: 200 %>
 <% end -%>
+
+<br>
+<% unless current_user.nil? %>
+	<% if @comment.user_id == current_user.id %>
+		<%= link_to '編集する', edit_comment_path(@comment) %>
+		<%= link_to '削除する', comment_path(@comment), method: :delete, data: { confirm: '削除してもいいですか？' } %>
+	<% end -%>
+<% end -%>
