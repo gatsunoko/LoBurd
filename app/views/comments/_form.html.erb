@@ -16,7 +16,7 @@
 		<%= f.hidden_field :map_id, value: @mapid %>
 	<% else %>
 			<% @comment.pictures.each do |picture| %>
-				<%= image_tag "/docs/#{ picture.picture_name }", width: 200 %>
+				<%= image_tag "/docs/#{ picture.id }", width: 200 %>
 			<% end -%>
 			<br>
 	<% end -%>
