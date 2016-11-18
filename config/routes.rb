@@ -3,14 +3,7 @@ Rails.application.routes.draw do
 	root 'maps#index'
 	resources :users
 	resources :maps
-	resources :comments do
-		collection do
-			post :upload_process
-		end
-		# member do
-		# 	post :upload_process
-		# end
-	end
+	resources :comments
   	get 'homes/index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
