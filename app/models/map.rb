@@ -2,6 +2,9 @@ class Map < ApplicationRecord
 	belongs_to :user, optional: true
 	has_many :comments, dependent: :destroy
 
+	validates :title, presence: { message: 'タイトルは必須です'}
+	validates :address, presence: { message: 'だいたいの住所は必須です'}
+
 	Geocoder.configure(language: :ja)
 
 	# if :latitude.blank? || :longitude.blank?

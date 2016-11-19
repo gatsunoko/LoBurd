@@ -1,12 +1,11 @@
 <%= form_for(map) do |f| %>
   <% if map.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(map.errors.count, "error") %> prohibited this map from being saved:</h2>
-
+      <h2><%= map.errors.count %> 個のエラーがあります</h2>
       <ul>
-      <% map.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% map.errors.messages.each do |message| %>
+          <li><%= message[1][0] %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -17,7 +16,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :address %>
+    <%= f.label :'住所(だいたいでいい)' %>
     <%= f.text_field :address %>
   </div>
 

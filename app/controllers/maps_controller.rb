@@ -11,18 +11,26 @@ class MapsController < ApplicationController
 			marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
 			marker.json({title: map.title})
 			
-			if map.rank_av >= 4
-				marker.picture({
-					url: ActionController::Base.helpers.asset_path('gold'),
-					width: "26",
-					height: "26"
-				})
-			elsif map.rank_av >= 2
-				marker.picture({
-					url: ActionController::Base.helpers.asset_path('silver'),
-					width: "26",
-					height: "26"
-				})
+			unless map.rank_av.nil?
+				if map.rank_av >= 4
+					marker.picture({
+						url: ActionController::Base.helpers.asset_path('gold'),
+						width: "26",
+						height: "26"
+					})
+				elsif map.rank_av >= 2
+					marker.picture({
+						url: ActionController::Base.helpers.asset_path('silver'),
+						width: "26",
+						height: "26"
+					})
+				else
+					marker.picture({
+						url: ActionController::Base.helpers.asset_path('bronze'),
+						width: "26",
+						height: "26"
+					})
+				end
 			else
 				marker.picture({
 					url: ActionController::Base.helpers.asset_path('bronze'),
