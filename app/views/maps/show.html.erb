@@ -37,17 +37,19 @@ gmap(markers, map, options)
 
 <% @comments.each do |comment| %>
   <div class="comment">
+    <%= link_to '', comment_path(comment), class: :comment_link %>
   	<strong><%= comment.user.username %></strong>さんのコメント
 
-    <p><%= link_to comment.title, comment_path(comment) %></p>
-    <p><%= comment.text %></p>
-
-    <% unless current_user.nil? %>
-      <% if comment.user_id == current_user.id %>
-        <%= link_to '編集する', edit_comment_path(comment) %>
-        <%= link_to '削除する', comment_path(comment), method: :delete, data: { confirm: '削除してもいいですか？' } %>
+    <% 5.times do |i| %>
+      <% if comment.star_rank_score >= i+1  %>
+        <%= image_tag 'star-on.png' %>
+      <% else %>
+        <%= image_tag 'star-off.png' %>
       <% end -%>
     <% end -%>
+
+    <p><%= comment.title %></p>
+    <p><%= comment.text %></p>
   </div><%# comment %>
 <% end -%>
 

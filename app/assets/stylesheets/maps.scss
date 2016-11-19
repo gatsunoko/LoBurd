@@ -2,8 +2,20 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .comment{
+	position: relative;
+	width: 90%;
+	height: 100px;
 	background: #BDFFB8;
 	padding: 1px 5px 2px;
 	margin: 10px;
 	border-radius: 10px;
+}
+.comment a {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height:100%;
+	width: 100%;
+	border:2px solid #00171F;
 }
