@@ -17,11 +17,13 @@
 <% end -%>
 
 <br>
-<% 5.times do |i| %>
-	<% if @comment.star_rank_score >= i+1  %>
-		<%= image_tag 'star-on.png' %>
-	<% else %>
-		<%= image_tag 'star-off.png' %>
+<% unless @comment.star_rank_score.nil? %>
+	<% 5.times do |i| %>
+		<% if @comment.star_rank_score >= i+1  %>
+			<%= image_tag 'star-on.png' %>
+		<% else %>
+			<%= image_tag 'star-off.png' %>
+		<% end -%>
 	<% end -%>
 <% end -%>
 

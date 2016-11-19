@@ -35,22 +35,26 @@ var options = {
 gmap(markers, map, options)
 </script>
 
-<% @comments.each do |comment| %>
-  <div class="comment">
-    <%= link_to '', comment_path(comment), class: :comment_link %>
-  	<strong><%= comment.user.username %></strong>さんのコメント
+<% unless @map.comments.nil? %>
+  <% @map.comments.each do |comment| %>
+    <div class="comment">
+      <%= link_to '', comment_path(comment), class: :comment_link %>
+    	<strong><%= comment.user.username %></strong>さんのコメント
 
-    <% 5.times do |i| %>
-      <% if comment.star_rank_score >= i+1  %>
-        <%= image_tag 'star-on.png' %>
-      <% else %>
-        <%= image_tag 'star-off.png' %>
+      <% unless comment.star_rank_score.nil? %>
+        <% 5.times do |i| %>
+          <% if comment.star_rank_score >= i+1  %>
+            <%= image_tag 'star-on.png' %>
+          <% else %>
+            <%= image_tag 'star-off.png' %>
+          <% end -%>
+        <% end -%>
       <% end -%>
-    <% end -%>
 
-    <p><%= comment.title %></p>
-    <p><%= comment.text %></p>
-  </div><%# comment %>
+      <p><%= comment.title %></p>
+      <p><%= comment.text %></p>
+    </div><%# comment %>
+  <% end -%>
 <% end -%>
 
 <%= link_to 'コメントを書く', new_comment_path %>
