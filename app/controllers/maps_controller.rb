@@ -10,11 +10,26 @@ class MapsController < ApplicationController
 			marker.lng map.longitude
 			marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
 			marker.json({title: map.title})
-			marker.picture({
-			  url: ActionController::Base.helpers.asset_path("puyo.png"),
-			  width: "26",
-			  height: "26"
-			})
+			
+			if map.rank_av >= 4
+				marker.picture({
+					url: ActionController::Base.helpers.asset_path('gold'),
+					width: "26",
+					height: "26"
+				})
+			elsif map.rank_av >= 2
+				marker.picture({
+					url: ActionController::Base.helpers.asset_path('silver'),
+					width: "26",
+					height: "26"
+				})
+			else
+				marker.picture({
+					url: ActionController::Base.helpers.asset_path('bronze'),
+					width: "26",
+					height: "26"
+				})
+			end
 		end
 	end
 
@@ -71,17 +86,26 @@ class MapsController < ApplicationController
       params.require(:map).permit(:user_id, :map_id, :title, :address, :latitude, :longitude)
     end
 
-	 def set_marker
-	  @hash = Gmaps4rails.build_markers(@map) do |map, marker|
-	    marker.lat map.latitude
-	    marker.lng map.longitude
-	    #marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
-	    marker.json({title: map.title})
-	    marker.picture({
-	      url: ActionController::Base.helpers.asset_path("puyo.png"),
-	      width: "26",
-	      height: "26"
-	    })
-	  end
+    def set_marker_index(rank)
+		@hash = Gmaps4rails.build_markers(@maps) do |map, marker|
+			marker.lat map.latitude
+			marker.lng map.longitude
+			marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
+			marker.json({title: map.title})
+			marker.picture({
+				url: ActionController::Base.helpers.asset_path(rank),
+				width: "26",
+				height: "26"
+			})
+		end
+    end
+
+	def set_marker
+		@hash = Gmaps4rails.build_markers(@map) do |map, marker|
+		marker.lat map.latitude
+		marker.lng map.longitude
+		#marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
+		marker.json({title: map.title})
+	end
 	end
 end

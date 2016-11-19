@@ -1,1 +1,14 @@
-<%= link_to object.title, map_path(object) %>
+<%= link_to object.title, map_path(object) %><br>
+<%= object.rank_av %>
+
+<% unless object.rank_av.nil? %>
+	<% 5.times do |i| %>
+	  <% if object.rank_av >= i+1 %>
+	    <%= image_tag 'star-on.png' %>
+	  <% elsif object.rank_av > i && object.rank_av < i+1 %>
+	    <%= image_tag 'star-half.png' %>
+	  <% else %>
+	  	<%= image_tag 'star-off.png' %>
+	  <% end -%>
+	<% end -%>
+<% end -%>
