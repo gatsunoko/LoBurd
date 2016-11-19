@@ -21,6 +21,28 @@
 			<br>
 	<% end -%>
 
+
+	<script type="text/javascript">
+	$(function(){
+	$('#star_rank').raty({
+	  half     : false,
+	  size     : 24,
+	  score    : '<%= @comment.star_rank_score %>',
+	  starHalf : '<%= asset_path('star-half.png') %>',
+	  starOff  : '<%= asset_path('star-off.png') %>',
+	  starOn   : '<%= asset_path('star-on.png') %>',
+	  target    : '#hint',
+	  targetType: 'number',
+	  targetKeep: true,
+	click: function(score, evt) {
+	  $("#star_rank_score").val(score);
+	}
+	});
+	});
+	</script>
+	<div id="star_rank"></div><div id="hint"></div>
+	<%= f.hidden_field :star_rank_score, id: :star_rank_score %>
+
 	<div class="field">
 		<%= f.submit %>
 	</div>
