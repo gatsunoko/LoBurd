@@ -21,3 +21,4 @@
 .byebug_history
 
 /public/docs/
+/config/database.yml
