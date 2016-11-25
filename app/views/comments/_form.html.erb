@@ -15,8 +15,17 @@
 		
 		<%= f.hidden_field :map_id, value: @mapid %>
 	<% else %>
+<%
+=begin
+%>
 			<% @comment.pictures.each do |picture| %>
 				<%= image_tag "/docs/#{ picture.id }", width: 200 %>
+			<% end -%>
+<%
+=end
+%>
+			<% @comment.pictures.each do |picture| %>
+				<%= image_tag "http://s3-ap-northeast-1.amazonaws.com/gatsunoko.loburd.com/images/#{picture.id}", width: 200 %>
 			<% end -%>
 			<br>
 	<% end -%>
