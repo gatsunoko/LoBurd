@@ -20,5 +20,7 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+/public/assets/
 /public/docs/
+/log/*
 /config/database.yml
