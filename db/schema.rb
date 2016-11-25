@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20161119100602) do
     t.float    "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.         "rank_av"
+    t.float    "rank_av"
   end
 
   create_table "pictures", force: :cascade do |t|
