@@ -23,4 +23,4 @@
 /public/assets/
 /public/docs/
 /log/*
-/config/database.yml
+.env

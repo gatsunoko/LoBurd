@@ -34,6 +34,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'execjs'
 gem 'therubyracer'
 gem 'aws-sdk', '1.61'
+gem 'dotenv-rails'
 
 gem 'gmaps4rails'
 gem 'geocoder'
