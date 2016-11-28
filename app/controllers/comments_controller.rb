@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
   def new
     if 0 < Comment.where('user_id = ? AND map_id = ?', current_user.id, session[:mapid]).count
       @comment = Comment.where('user_id = ? AND map_id = ?', current_user.id, session[:mapid]).first
-      redirect_to comment_path(@comment)
+      redirect_to comment_path(@comment) and return
     end
 
   	@comment = Comment.new
@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
   def create
     if 0 < Comment.where('user_id = ? AND map_id = ?', current_user.id, session[:mapid]).count
       @comment = Comment.where('user_id = ? AND map_id = ?', current_user.id, session[:mapid]).first
-      redirect_to comment_path(@comment)
+      redirect_to comment_path(@comment) and return
     end
 
   	@comment = Comment.new(comment_params)
@@ -42,11 +42,11 @@ class CommentsController < ApplicationController
       end
       @map.rank_av = Comment.where('map_id = ?', comment_params[:map_id]).average(:star_rank_score).to_f
       @map.save
-
+      
       session[:up_result] = @up_result
-  		redirect_to map_path(comment_params[:map_id])
+  		redirect_to map_path(comment_params[:map_id]) and return
   	else
-  		render 'new'
+  		render 'new' and return
   	end
   end
 
@@ -68,9 +68,9 @@ class CommentsController < ApplicationController
       @map.save
 
       session[:up_result] = @up_result
-      redirect_to comment_path params[:id]
+      redirect_to comment_path params[:id] and return
     else
-      render 'new'
+      render 'new' and return
     end
   end
 

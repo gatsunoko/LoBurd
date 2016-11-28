@@ -1,6 +1,6 @@
 class MapsController < ApplicationController
 	before_action :set_map, only: [:show, :edit, :update, :destroy]
-	before_action :set_marker, only: [:index, :show, :edit]
+	before_action :set_marker, only: [:show, :edit]
 	before_action :authenticate_user!, only: [:new, :edit]
 
 	def index
@@ -94,26 +94,12 @@ class MapsController < ApplicationController
       params.require(:map).permit(:user_id, :map_id, :title, :address, :latitude, :longitude)
     end
 
-    def set_marker_index(rank)
-		@hash = Gmaps4rails.build_markers(@maps) do |map, marker|
-			marker.lat map.latitude
-			marker.lng map.longitude
-			marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
-			marker.json({title: map.title})
-			marker.picture({
-				url: ActionController::Base.helpers.asset_path(rank),
-				width: "26",
-				height: "26"
-			})
+		def set_marker
+			@hash = Gmaps4rails.build_markers(@map) do |map, marker|
+				marker.lat map.latitude
+				marker.lng map.longitude
+				#marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
+				marker.json({title: map.title})
+			end
 		end
-    end
-
-	def set_marker
-		@hash = Gmaps4rails.build_markers(@map) do |map, marker|
-		marker.lat map.latitude
-		marker.lng map.longitude
-		#marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
-		marker.json({title: map.title})
-	end
-	end
 end
