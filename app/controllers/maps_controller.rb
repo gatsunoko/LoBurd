@@ -8,8 +8,9 @@ class MapsController < ApplicationController
 		@hash = Gmaps4rails.build_markers(@maps) do |map, marker|
 			marker.lat map.latitude
 			marker.lng map.longitude
+			dis = distance(map.latitude, map.longitude)#特定の場所からの距離を計算する関数
 			marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
-			marker.json({title: map.title})
+			marker.json({title: map.title, c_distance: dis})
 			
 			unless map.rank_av.nil?
 				if map.rank_av >= 4
@@ -38,6 +39,16 @@ class MapsController < ApplicationController
 					height: "26"
 				})
 			end
+		end
+		#マーカーのハッシュを近い順にソート
+		@hash.sort! do |a, b|
+		  a[:c_distance] <=> b[:c_distance]
+		end
+		#上位3件を表示するようにする
+		@hash.slice!(3..-1)
+		@hash.each do |hash, v|
+			p 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
+			p hash[:c_distance]
 		end
 	end
 
@@ -94,12 +105,17 @@ class MapsController < ApplicationController
       params.require(:map).permit(:user_id, :map_id, :title, :address, :latitude, :longitude)
     end
 
-		def set_marker
-			@hash = Gmaps4rails.build_markers(@map) do |map, marker|
-				marker.lat map.latitude
-				marker.lng map.longitude
-				#marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
-				marker.json({title: map.title})
-			end
+	def set_marker
+		@hash = Gmaps4rails.build_markers(@map) do |map, marker|
+			marker.lat map.latitude
+			marker.lng map.longitude
+			#marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
+			marker.json({title: map.title})
 		end
+	end
+
+	def distance(pos1, pos2)
+		Geocoder::Calculations.distance_between([pos1, pos2], [35.170915, 136.8815369]) * 1000.0
+	end
+
 end

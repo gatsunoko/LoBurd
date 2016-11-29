@@ -9,11 +9,10 @@
     handler.buildMap({ provider: mapOptions, internal: {id: 'map'}}, function(){
       markers = handler.addMarkers(<%=raw @hash.to_json %>);
       handler.bounds.extendWith(markers);
-      handler.fitMapToBounds();
-      //handler.getMap().setZoom(15);
-      //handler.getMap().setCenter(new google.maps.LatLng(35.165068597526094, 136.89208984375));
+      //handler.fitMapToBounds();
+      handler.getMap().setZoom(15);
+      handler.getMap().setCenter(new google.maps.LatLng(35.165068597526094, 136.89208984375));
     });
 </script>
 
 <%= link_to '新しいマップを登録', new_map_path %>
-
