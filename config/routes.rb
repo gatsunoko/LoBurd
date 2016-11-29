@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 	resources :maps
 	resources :comments
   	get 'homes/index'
-
+  	post 'maps/ajax', to: 'maps#ajax'
+  	get 'maps/ajax', to: 'maps#ajax'
+  	get '/ajax' => 'maps#ajax', as: :ajax
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

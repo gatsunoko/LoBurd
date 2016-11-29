@@ -12,6 +12,25 @@
       //handler.fitMapToBounds();
       handler.getMap().setZoom(15);
       handler.getMap().setCenter(new google.maps.LatLng(35.165068597526094, 136.89208984375));
+
+      google.maps.event.addListener(handler.getMap(), "tilesloaded", function(event) {
+        var center = handler.getMap().getCenter();
+        //alert(handler.getMap().getCenter());
+          $.ajax({
+              url: "maps/ajax",
+              type: "get",
+              data: {lat: center.lat,
+                      lng: center.lng
+                      },
+              dataType: "html",
+              success: function(data) {
+                  //alert("success");
+              },
+              error: function(data) {
+                  //alert("errror");
+              }
+          });
+      });
     });
 </script>
 
