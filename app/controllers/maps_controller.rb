@@ -53,12 +53,13 @@ class MapsController < ApplicationController
 	end
 
 	def ajax
-		raise params.inspect
+		#raise params.inspect
+		p 'aaaaaadcdgfrgradcavdc'
 		@maps = Map.all
 		@hash = Gmaps4rails.build_markers(@maps) do |map, marker|
 			marker.lat map.latitude
 			marker.lng map.longitude
-			dis = distance(map.latitude, map.longitude, lat, lng)#特定の場所からの距離を計算する関数
+			dis = distance(map.latitude, map.longitude, params[:lat], params[:lng])#特定の場所からの距離を計算する関数
 			marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
 			marker.json({title: map.title, c_distance: dis})
 			
@@ -96,10 +97,6 @@ class MapsController < ApplicationController
 		end
 		#centerからの距離近い順で上位3件を表示するようにする
 		@hash.slice!(3..-1)
-		@hash.each do |hash, v|
-			p 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
-			p hash[:c_distance]
-		end
 	end
 
 	def show
