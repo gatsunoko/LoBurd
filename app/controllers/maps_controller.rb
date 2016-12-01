@@ -53,8 +53,6 @@ class MapsController < ApplicationController
 	end
 
 	def ajax
-		#raise params.inspect
-		p 'aaaaaadcdgfrgradcavdc'
 		@maps = Map.all
 		@hash = Gmaps4rails.build_markers(@maps) do |map, marker|
 			marker.lat map.latitude

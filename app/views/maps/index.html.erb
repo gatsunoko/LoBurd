@@ -13,7 +13,7 @@
       handler.getMap().setZoom(15);
       handler.getMap().setCenter(new google.maps.LatLng(35.165068597526094, 136.89208984375));
 
-      google.maps.event.addListener(handler.getMap(), "dragend", function(event) {
+      google.maps.event.addListener(handler.getMap(), "idle", function(event) {
         var center = handler.getMap().getCenter();
         //alert(handler.getMap().getCenter());
           $.ajax({
