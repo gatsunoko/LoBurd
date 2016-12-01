@@ -3,6 +3,7 @@
 </div>
 
 <script type="text/javascript">
+  var infoWindow = false;
 	var mapOptions = { mapTypeControl: google.maps.mapTypeControl = false,
 					   streetViewControl: google.maps.streetViewControl = false };
     handler = Gmaps.build('Google');
@@ -24,13 +25,16 @@
                       },
               dataType: "script",
               success: function(data) {
-                  //alert("success");
               },
               error: function(data) {
-                  //alert("errror");
               }
           });
       });
+
+      // google.maps.event.addListener(handler.getMap(), 'click', function() { 
+      //   infoWindow = true; 
+      //   setTimeout("infoWindow = false", 1000);
+      // });
     });
 </script>
 
