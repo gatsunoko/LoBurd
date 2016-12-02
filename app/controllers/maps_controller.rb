@@ -4,11 +4,15 @@ class MapsController < ApplicationController
 	before_action :authenticate_user!, only: [:new, :edit]
 
 	def index
-		set_map_index(35.170915, 136.8815369)
+		set_map_index(false, 35.170915, 136.8815369)
 	end
 
 	def ajax
-		set_map_index(params[:lat], params[:lng])
+		set_map_index(true, params[:lat], params[:lng])
+		p params[:lower_lat]
+		p params[:upper_lat]
+		p params[:lower_lng]
+		p params[:upper_lng]
 	end
 
 	def show
@@ -56,14 +60,20 @@ class MapsController < ApplicationController
       @map = Map.find(params[:id])
     end
 
-    def set_map_index(m_lat, m_lng)
+    def set_map_index(ajax_Judg, m_lat, m_lng)
 		@maps = Map.all
+		if (ajax_Judg)
+			@maps = Map.where('latitude > ? AND latitude < ? AND longitude > ? AND longitude < ?', params[:lower_lat], params[:upper_lat], params[:lower_lng], params[:upper_lng])
+		else
+			@maps = Map.all
+		end
 		@hash = Gmaps4rails.build_markers(@maps) do |map, marker|
 			marker.lat map.latitude
 			marker.lng map.longitude
-			dis = distance(map.latitude, map.longitude, m_lat, m_lng)#特定の場所からの距離を計算する関数
+			#dis = distance(map.latitude, map.longitude, m_lat, m_lng)#特定の場所からの距離を計算する関数
 			marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
-			marker.json({title: map.title, c_distance: dis})
+			#marker.json({title: map.title, c_distance: dis})
+			marker.json({title: map.title})
 			
 			unless map.rank_av.nil?
 				if map.rank_av >= 4
@@ -94,11 +104,11 @@ class MapsController < ApplicationController
 			end
 		end
 		#マーカーのハッシュを近い順にソート
-		@hash.sort! do |a, b|
-		  a[:c_distance] <=> b[:c_distance]
-		end
+		# @hash.sort! do |a, b|
+		#   a[:c_distance] <=> b[:c_distance]
+		# end
 		#centerからの距離近い順で上位3件を表示するようにする
-		@hash.slice!(3..-1)
+		@hash.slice!(20..-1)
     end
 
     def map_params

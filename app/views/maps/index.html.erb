@@ -13,22 +13,30 @@
       //handler.fitMapToBounds();
       handler.getMap().setZoom(15);
       handler.getMap().setCenter(new google.maps.LatLng(35.165068597526094, 136.89208984375));
-
+      //var initialBounds = handler.getBounds();
       google.maps.event.addListener(handler.getMap(), "idle", function(event) {
         var center = handler.getMap().getCenter();
-        //alert(handler.getMap().getCenter());
-          $.ajax({
-              url: "maps/ajax",
-              type: "get",
-              data: {lat: center.lat,
-                      lng: center.lng
-                      },
-              dataType: "script",
-              success: function(data) {
-              },
-              error: function(data) {
-              }
-          });
+        var bounds = handler.getMap().getBounds();
+        $.ajax({
+            url: "maps/ajax",
+            type: "get",
+            data: {lat: center.lat,
+                    lng: center.lng,
+                    upper_lat: bounds.getNorthEast().lat(),
+                    lower_lat: bounds.getSouthWest().lat(),
+                    upper_lng: bounds.getNorthEast().lng(),
+                    lower_lng: bounds.getSouthWest().lng()
+                    // upper_lat: handler.bounds.serviceObject.f.b,
+                    // lower_lat: handler.bounds.serviceObject.f.f,
+                    // upper_lng: handler.bounds.serviceObject.b.f,
+                    // lower_lng: handler.bounds.serviceObject.b.b
+                    },
+            dataType: "script",
+            success: function(data) {
+            },
+            error: function(data) {
+            }
+        });
       });
 
       // google.maps.event.addListener(handler.getMap(), 'click', function() { 

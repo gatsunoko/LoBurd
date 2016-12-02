@@ -3,6 +3,7 @@ if (infoWindow == false) {
 	_.each(markers, function(marker, index) {
 		handler.removeMarker(marker);
 	});
+	//handler.clearOverlays(); // 全てのマーカーを消去（線も消えるので注意）
 	//新しいマーカーを追加
 	markers = handler.addMarkers(<%=raw @hash.to_json %>);
 	//マーカーにイベントを追加
