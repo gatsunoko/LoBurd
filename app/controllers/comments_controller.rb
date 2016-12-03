@@ -119,7 +119,7 @@ class CommentsController < ApplicationController
             @picture.picture_path = ENV["AWS_PICTURE_PATH"]+@picture.id.to_s
             @picture.save
 
-            file_full_path="images/"+@picture.id.to_s
+            file_full_path="images/"+@picture.id.to_s+File.extname(name).downcase
             object = bucket.objects[file_full_path]
             object.write(file ,:acl => :public_read)
 
@@ -147,7 +147,7 @@ class CommentsController < ApplicationController
             @picture.picture_name = value.original_filename
             @picture.comment_id = @comment.id
             @picture.save
-            File.open("public/docs/#{@picture.id}", 'wb') { |f| f.write(file.read) }
+            File.open("public/docs/#{@picture.id}"+File.extname(name).downcase, 'wb') { |f| f.write(file.read) }
             @up_result[name.to_s] = '画像をアップロードしました。'
           end
         end
