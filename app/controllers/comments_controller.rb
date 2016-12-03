@@ -78,7 +78,7 @@ class CommentsController < ApplicationController
     if Rails.env == 'production'
       @comment.pictures.each do |picture|
         s3 = AWS::S3.new
-        s3.buckets[ENV["AWS_S3_BUCKET"]].objects["images/"+picture.id.to_s].delete
+        s3.buckets[ENV["AWS_S3_BUCKET"]].objects["images/"+picture.id.to_s+File.extname("#{ picture.picture_name }").downcase].delete
       end
     end
     @comment.destroy
