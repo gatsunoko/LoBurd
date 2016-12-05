@@ -20,14 +20,14 @@
 
 <% if Rails.env == 'production' %>
 	<% @comment.pictures.each do |picture| %>
-		<%= link_to image_tag("http://s3-ap-northeast-1.amazonaws.com/gatsunoko.loburd.com/images/#{picture.id}"+File.extname("#{ picture.picture_name }").downcase, width: 200),
+		<%= link_to image_tag("http://s3-ap-northeast-1.amazonaws.com/gatsunoko.loburd.com/images/#{picture.id}min"+File.extname("#{ picture.picture_name }").downcase),
 								 "http://s3-ap-northeast-1.amazonaws.com/gatsunoko.loburd.com/images/#{picture.id}"+File.extname("#{ picture.picture_name }").downcase,
 								 :'data-lity' => "data-lity"  %>
 	<% end -%>
 <% else %>
 	<% @comment.pictures.each do |picture| %>
 		<%#= image_tag "/docs/#{ picture.id }", width: 200 %>
-		<%= link_to image_tag("/docs/#{ picture.id }"+File.extname("#{ picture.picture_name }").downcase, width: 200), "/docs/#{ picture.id }"+File.extname("#{ picture.picture_name }").downcase, :'data-lity' => "data-lity" %>
+		<%= link_to image_tag("/docs/#{ picture.id }min"+File.extname("#{ picture.picture_name }").downcase), "/docs/#{ picture.id }"+File.extname("#{ picture.picture_name }").downcase, :'data-lity' => "data-lity" %>
 	<% end -%>
 <% end -%>
 

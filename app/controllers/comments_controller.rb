@@ -1,5 +1,7 @@
 require 'kconv'
 require 'aws-sdk-v1'
+require 'RMagick'#require sudo yum install ImageMagick ImageMagick-devel -y
+
 class CommentsController < ApplicationController
   
   before_action :authenticate_user!, only: [:new, :edit]
@@ -109,8 +111,8 @@ class CommentsController < ApplicationController
           perms = ['.jpg', '.jpeg', '.gif', '.png']
           if !perms.include?(File.extname(name).downcase)
             @up_result[name.to_s] = 'アップロードできるのは画像ファイルのみです。'
-          elsif file.size > 2.megabyte
-            @up_result[name.to_s] = 'ファイルサイズは2MBまでです。'
+          elsif file.size > 10.megabyte
+            @up_result[name.to_s] = 'ファイルサイズは10MBまでです。'
           else
             name = name.kconv(Kconv::SJIS, Kconv::UTF8)
             @picture = Picture.new
@@ -122,6 +124,13 @@ class CommentsController < ApplicationController
             file_full_path="images/"+@picture.id.to_s+File.extname(name).downcase
             object = bucket.objects[file_full_path]
             object.write(file ,:acl => :public_read)
+
+            original = Magick::Image.read("http://s3-ap-northeast-1.amazonaws.com/gatsunoko.loburd.com/images/#{picture.id}min"+File.extname("#{ picture.picture_name }").downcase).first
+            minpic = original.resize_to_fit(250, 250)
+            #minpic.write(bucket.objects[file_full_path])
+            file_full_path="images/"+@picture.id.to_s+"min"+File.extname(name).downcase
+            object = bucket.objects[file_full_path]
+            object.write(minpic ,:acl => :public_read) 
 
             @up_result[name.to_s] = '画像をアップロードしました。'
           end
@@ -139,8 +148,8 @@ class CommentsController < ApplicationController
           perms = ['.jpg', '.jpeg', '.gif', '.png']
           if !perms.include?(File.extname(name).downcase)
             @up_result[name.to_s] = 'アップロードできるのは画像ファイルのみです。'
-          elsif file.size > 2.megabyte
-            @up_result[name.to_s] = 'ファイルサイズは2MBまでです。'
+          elsif file.size > 10.megabyte
+            @up_result[name.to_s] = 'ファイルサイズは10MBまでです。'
           else
             name = name.kconv(Kconv::SJIS, Kconv::UTF8)
             @picture = Picture.new
@@ -148,6 +157,9 @@ class CommentsController < ApplicationController
             @picture.comment_id = @comment.id
             @picture.save
             File.open("public/docs/#{@picture.id}"+File.extname(name).downcase, 'wb') { |f| f.write(file.read) }
+            original = Magick::Image.read("public/docs/#{@picture.id}"+File.extname(name).downcase).first
+            minpic = original.resize_to_fit(250, 250)
+            minpic.write("public/docs/#{@picture.id}min"+File.extname(name).downcase)
             @up_result[name.to_s] = '画像をアップロードしました。'
           end
         end
