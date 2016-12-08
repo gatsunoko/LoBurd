@@ -156,11 +156,15 @@ class CommentsController < ApplicationController
             @picture.picture_name = value.original_filename
             @picture.comment_id = @comment.id
             @picture.save
-            File.open("public/docs/#{@picture.id}"+File.extname(name).downcase, 'wb') { |f| f.write(file.read) }
-            original = Magick::Image.read("public/docs/#{@picture.id}"+File.extname(name).downcase).first
-            minpic = original.resize_to_fit(250, 250)
-            minpic.write("public/docs/#{@picture.id}min"+File.extname(name).downcase)
-            @up_result[name.to_s] = '画像をアップロードしました。'
+            File.open("public/docs/#{@picture.id}"+File.extname(name).downcase, 'wb') { |f| f.write(file.read) 
+              p 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              p file.read
+              #img = file.read
+              original = Magick::Image.read(file.read).first
+              minpic = original.resize_to_fit(250, 250)
+              minpic.write("public/docs/#{@picture.id}min"+File.extname(name).downcase)
+              @up_result[name.to_s] = '画像をアップロードしました。'
+            }
           end
         end
       end
