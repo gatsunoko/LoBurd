@@ -13,4 +13,6 @@ if (infoWindow == false) {
 			setTimeout("infoWindow = false", 1000);
 		});
 	});
+
+	$('#listDisplay').html("<%= escape_javascript(render 'listDisplay') %>");
 }

@@ -9,10 +9,6 @@ class MapsController < ApplicationController
 
 	def ajax
 		set_map_index(true, params[:lat], params[:lng])
-		p params[:lower_lat]
-		p params[:upper_lat]
-		p params[:lower_lng]
-		p params[:upper_lng]
 	end
 
 	def show
@@ -70,10 +66,10 @@ class MapsController < ApplicationController
 		@hash = Gmaps4rails.build_markers(@maps) do |map, marker|
 			marker.lat map.latitude
 			marker.lng map.longitude
-			#dis = distance(map.latitude, map.longitude, m_lat, m_lng)#特定の場所からの距離を計算する関数
+			dis = distance(map.latitude, map.longitude, m_lat, m_lng)#特定の場所からの距離を計算する関数
 			marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
-			#marker.json({title: map.title, c_distance: dis})
-			marker.json({title: map.title})
+			marker.json({title: map.title, c_distance: dis, rank_av: map.rank_av})
+			#marker.json({title: map.title})
 			
 			unless map.rank_av.nil?
 				if map.rank_av >= 4
@@ -107,8 +103,12 @@ class MapsController < ApplicationController
 		# @hash.sort! do |a, b|
 		#   a[:c_distance] <=> b[:c_distance]
 		# end
-		#centerからの距離近い順で上位3件を表示するようにする
+		#上位20件を表示するようにする
 		@hash.slice!(20..-1)
+		@hashDis = @hash
+		@hashDis.sort! do |a, b|
+		  a[:c_distance] <=> b[:c_distance]
+		end
     end
 
     def map_params

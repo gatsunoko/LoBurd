@@ -125,12 +125,12 @@ class CommentsController < ApplicationController
             object = bucket.objects[file_full_path]
             object.write(file ,:acl => :public_read)
 
-            original = Magick::Image.read("http://s3-ap-northeast-1.amazonaws.com/gatsunoko.loburd.com/images/#{picture.id}min"+File.extname("#{ picture.picture_name }").downcase).first
+            original = Magick::Image.from_blob(File.read(file.tempfile)).shift
             minpic = original.resize_to_fit(250, 250)
             #minpic.write(bucket.objects[file_full_path])
             file_full_path="images/"+@picture.id.to_s+"min"+File.extname(name).downcase
             object = bucket.objects[file_full_path]
-            object.write(minpic ,:acl => :public_read) 
+            object.write(minpic.to_blob ,:acl => :public_read)
 
             @up_result[name.to_s] = '画像をアップロードしました。'
           end
@@ -156,15 +156,12 @@ class CommentsController < ApplicationController
             @picture.picture_name = value.original_filename
             @picture.comment_id = @comment.id
             @picture.save
-            File.open("public/docs/#{@picture.id}"+File.extname(name).downcase, 'wb') { |f| f.write(file.read) 
-              p 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-              p file.read
-              #img = file.read
-              original = Magick::Image.read(file.read).first
-              minpic = original.resize_to_fit(250, 250)
-              minpic.write("public/docs/#{@picture.id}min"+File.extname(name).downcase)
-              @up_result[name.to_s] = '画像をアップロードしました。'
-            }
+            File.open("public/docs/#{@picture.id}"+File.extname(name).downcase, 'wb') { |f| f.write(file.read) }
+
+            original = Magick::Image.from_blob(File.read(file.tempfile)).shift
+            minpic = original.resize_to_fit(250, 250)
+            minpic.write("public/docs/#{@picture.id}min"+File.extname(name).downcase)
+            @up_result[name.to_s] = '画像をアップロードしました。'
           end
         end
       end

@@ -1,3 +1,5 @@
+<div id="container">
+<div id="mapArea">
 <div style='width: 800px;'>
   <div id="map" style='width: 800px; height: 600px;'></div>
 </div>
@@ -38,12 +40,11 @@
             }
         });
       });
-
-      // google.maps.event.addListener(handler.getMap(), 'click', function() { 
-      //   infoWindow = true; 
-      //   setTimeout("infoWindow = false", 1000);
-      // });
     });
 </script>
 
 <%= link_to '新しいマップを登録', new_map_path %>
+</div><%#mapArea%>
+<div id="listDisplay">
+</div><%#=listDisplay%>
+</div><%#=container%>

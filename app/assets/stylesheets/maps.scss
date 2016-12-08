@@ -1,6 +1,23 @@
 // Place all the styles related to the maps controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+body > #container {
+	height: auto;
+}
+#container {
+	min-height: 100%;
+	height: 100%;
+	border: 1px solid pink;
+}
+#mapArea {
+	float: left;
+	width: 85%;
+}
+#listDisplay {
+	float: right;
+	width: 15%;
+}
 .comment{
 	position: relative;
 	width: 90%;
