@@ -9,10 +9,6 @@ class MapsController < ApplicationController
 
 	def ajax
 		set_map_index(true, params[:lat], params[:lng])
-		p params[:lower_lat]
-		p params[:upper_lat]
-		p params[:lower_lng]
-		p params[:upper_lng]
 	end
 
 	def show
