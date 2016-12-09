@@ -125,7 +125,8 @@ class CommentsController < ApplicationController
             object = bucket.objects[file_full_path]
             object.write(file ,:acl => :public_read)
 
-            original = Magick::Image.read("http://s3-ap-northeast-1.amazonaws.com/gatsunoko.loburd.com/images/#{picture.id}min"+File.extname("#{ picture.picture_name }").downcase).first
+            #original = Magick::Image.read(ENV["AWS_PICTURE_PATH"]+"#{@picture.id}"+File.extname("#{ @picture.picture_name }").downcase).first
+            original = Magick::Image.from_blob(file).first
             minpic = original.resize_to_fit(250, 250)
             #minpic.write(bucket.objects[file_full_path])
             file_full_path="images/"+@picture.id.to_s+"min"+File.extname(name).downcase
