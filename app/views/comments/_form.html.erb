@@ -17,11 +17,11 @@
 	<% else %>
 		<% if Rails.env == 'production' %>
 			<% @comment.pictures.each do |picture| %>
-				<%= image_tag "http://s3-ap-northeast-1.amazonaws.com/gatsunoko.loburd.com/images/#{picture.id}", width: 200 %>
+				<%= image_tag "http://s3-ap-northeast-1.amazonaws.com/gatsunoko.loburd.com/images/#{picture.id}min"+File.extname("#{ picture.picture_name }").downcase %>
 			<% end -%>
 		<% else %>
 			<% @comment.pictures.each do |picture| %>
-				<%= image_tag "/docs/#{ picture.id }", width: 200 %>
+				<%= image_tag "/docs/#{ picture.id }min"+File.extname("#{ picture.picture_name }").downcase %>
 			<% end -%>
 		<% end -%>
 	<% end -%>
