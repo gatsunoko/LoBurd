@@ -59,7 +59,7 @@ class MapsController < ApplicationController
     def set_map_index(ajax_Judg, m_lat, m_lng)
 		@maps = Map.all
 		if (ajax_Judg)
-			@maps = Map.where('latitude > ? AND latitude < ? AND longitude > ? AND longitude < ?', params[:lower_lat], params[:upper_lat], params[:lower_lng], params[:upper_lng])
+			@maps = Map.where('latitude > ? AND latitude < ? AND longitude > ? AND longitude < ?', params[:lower_lat], params[:upper_lat], params[:lower_lng], params[:upper_lng]).order(rank_av: :desc)
 		else
 			@maps = Map.all
 		end
@@ -103,12 +103,14 @@ class MapsController < ApplicationController
 		# @hash.sort! do |a, b|
 		#   a[:c_distance] <=> b[:c_distance]
 		# end
-		#上位20件を表示するようにする
+		#rank_av上位20件を表示するようにする
 		@hash.slice!(20..-1)
-		@hashDis = @hash
-		@hashDis.sort! do |a, b|
-		  a[:c_distance] <=> b[:c_distance]
-		end
+		
+		#近い順に表示する
+		#@hashDis = @hash
+		# @hashDis.sort! do |a, b|
+		#   a[:c_distance] <=> b[:c_distance]
+		# end
     end
 
     def map_params
