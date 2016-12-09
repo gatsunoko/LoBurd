@@ -130,7 +130,7 @@ class CommentsController < ApplicationController
             #minpic.write(bucket.objects[file_full_path])
             file_full_path="images/"+@picture.id.to_s+"min"+File.extname(name).downcase
             object = bucket.objects[file_full_path]
-            object.write(minpic ,:acl => :public_read) 
+            object.write(minpic.to_blob ,:acl => :public_read)
 
             @up_result[name.to_s] = '画像をアップロードしました。'
           end
