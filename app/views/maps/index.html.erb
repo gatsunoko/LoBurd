@@ -13,7 +13,7 @@
       markers = handler.addMarkers(<%=raw @hash.to_json %>);
       handler.bounds.extendWith(markers);
       //handler.fitMapToBounds();
-      handler.getMap().setZoom(15);
+      handler.getMap().setZoom(13);
       handler.getMap().setCenter(new google.maps.LatLng(35.165068597526094, 136.89208984375));
       //var initialBounds = handler.getBounds();
       google.maps.event.addListener(handler.getMap(), "idle", function(event) {

@@ -1,5 +1,5 @@
 <% @hash.each do |dista| %>
-  <p><%= dista[:title] %></p>
+  <p><%= link_to dista[:title], map_path(dista[:map_id]), :target=>["_blank"] %></p>
   <% unless dista[:rank_av].nil? %>
     <% 5.times do |i| %>
       <% if dista[:rank_av] >= i+1 %>
