@@ -1,14 +1,18 @@
 <% @hash.each do |dista| %>
-  <p><%= link_to dista[:title], map_path(dista[:map_id]), :target=>["_blank"] %></p>
-  <% unless dista[:rank_av].nil? %>
-    <% 5.times do |i| %>
-      <% if dista[:rank_av] >= i+1 %>
-        <%= image_tag 'star-on.png' %>
-      <% elsif dista[:rank_av] > i && dista[:rank_av] < i+1 %>
-        <%= image_tag 'star-half.png' %>
-      <% else %>
-        <%= image_tag 'star-off.png' %>
+  <div class="listShow">
+    <%= link_to dista[:title], map_path(dista[:map_id]), :target=>["_blank"] %>
+    <div class="listStar">
+      <% unless dista[:rank_av].nil? %>
+        <% 5.times do |i| %>
+          <% if dista[:rank_av] >= i+1 %>
+            <%= image_tag 'star-on.png' %>
+          <% elsif dista[:rank_av] > i && dista[:rank_av] < i+1 %>
+            <%= image_tag 'star-half.png' %>
+          <% else %>
+            <%= image_tag 'star-off.png' %>
+          <% end -%>
+        <% end -%>
       <% end -%>
-    <% end -%>
-  <% end -%>
+    </div>
+  </div>
 <% end -%>

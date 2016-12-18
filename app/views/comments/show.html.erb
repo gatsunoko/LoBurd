@@ -18,6 +18,18 @@
   <%= @comment.text %>
 </p>
 
+<% unless @comment.star_rank_score.nil? %>
+	<% 5.times do |i| %>
+		<% if @comment.star_rank_score >= i+1  %>
+			<%= image_tag 'star-on.png' %>
+		<% else %>
+			<%= image_tag 'star-off.png' %>
+		<% end -%>
+	<% end -%>
+<% end -%>
+
+<br>
+
 <% if Rails.env == 'production' %>
 	<% @comment.pictures.each do |picture| %>
 		<%= link_to image_tag("http://s3-ap-northeast-1.amazonaws.com/gatsunoko.loburd.com/images/#{picture.id}min"+File.extname("#{ picture.picture_name }").downcase),
@@ -32,15 +44,6 @@
 <% end -%>
 
 <br>
-<% unless @comment.star_rank_score.nil? %>
-	<% 5.times do |i| %>
-		<% if @comment.star_rank_score >= i+1  %>
-			<%= image_tag 'star-on.png' %>
-		<% else %>
-			<%= image_tag 'star-off.png' %>
-		<% end -%>
-	<% end -%>
-<% end -%>
 
 <br>
 <% unless current_user.nil? %>

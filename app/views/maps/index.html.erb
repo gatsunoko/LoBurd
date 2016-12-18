@@ -1,5 +1,6 @@
 <div id="container">
 <div id="mapArea">
+<div id="mapDisplay">
 <div style='width: 800px;'>
   <div id="map" style='width: 800px; height: 600px;'></div>
 </div>
@@ -42,8 +43,10 @@
       });
     });
 </script>
-
-<%= link_to '新しいマップを登録', new_map_path %>
+</div><%#mapDisplay%>
+<div id="newMapCreate">
+  <%= link_to '新しいマップを登録', new_map_path %>
+</div>
 </div><%#mapArea%>
 <div id="listDisplay">
 </div><%#=listDisplay%>

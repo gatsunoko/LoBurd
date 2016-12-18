@@ -3,16 +3,14 @@
   <%= @map.user.username %>くんが登録した
 <% end -%>
 <p>
-  <strong>Title:</strong>
+  <strong>スポット名:</strong>
   <%= @map.title %>
 </p>
 
 <p>
-  <strong>Address:</strong>
+  <strong>住所:</strong>
   <%= @map.address %>
 </p>
-
-<%= link_to 'トップへ', maps_path %>
 
 <% unless current_user.nil? %>
   <% if @map.user_id == current_user.id %>
@@ -50,9 +48,10 @@ gmap(markers, map, options)
           <% end -%>
         <% end -%>
       <% end -%>
-
-      <p><%= comment.title %></p>
-      <p><%= comment.text %></p>
+      
+      <br>
+      <p class="commentTitle"><%= comment.title %></p>
+      <p class="commentText"><%= comment.text %></p>
     </div><%# comment %>
   <% end -%>
 <% end -%>
