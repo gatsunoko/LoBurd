@@ -1,12 +1,52 @@
 <div id="map_show_body">
+
 <p id="notice"><%#= notice %></p>
 <% unless @map.user_id.nil? %>
-  <%= @map.user.username %>くんが登録した
+  <strong><%= @map.user.username %></strong>さんが登録した場所
 <% end -%>
 <p>
   <strong>スポット名:</strong>
   <%= @map.title %>
 </p>
+
+<% unless @map.comments.nil? %>
+  <% @map.comments.each do |comment| %>
+    <div class="map_show_comment">
+      <%= link_to '', comment_path(comment), class: :comment_link %>
+      <strong><%= comment.user.username %></strong>さんのコメント
+
+      <% unless comment.star_rank_score.nil? %>
+        <% 5.times do |i| %>
+          <% if comment.star_rank_score >= i+1  %>
+            <%= image_tag 'star-on.png' %>
+          <% else %>
+            <%= image_tag 'star-off.png' %>
+          <% end -%>
+        <% end -%>
+      <% end -%>
+      
+      <br>
+      <p class="map_comment_title"><%= comment.title %></p>
+      <p class="map_comment_text"><%= truncate(comment.text, length: 200) %></p>
+
+      <% copicCount = 0 %>
+      <% if Rails.env == 'production' %>
+        <% comment.pictures.each do |picture| %>
+          <%= image_tag("http://s3-ap-northeast-1.amazonaws.com/gatsunoko.loburd.com/images/#{picture.id}min"+File.extname("#{ picture.picture_name }").downcase, width: 110) %>
+          <% copicCount += 1 %>
+          <% break if copicCount > 4  %>
+        <% end -%>
+      <% else %>
+        <% comment.pictures.each do |picture| %>
+          <%= image_tag("/docs/#{ picture.id }min"+File.extname("#{ picture.picture_name }").downcase, width: 110) %>
+          <% copicCount += 1 %>
+          <% break if copicCount > 4  %>
+        <% end -%>
+      <% end -%>
+
+    </div><%# map_show_comment %>
+  <% end -%>
+<% end -%>
 
 <p>
   <strong>住所:</strong>
@@ -33,29 +73,6 @@ var options = {
 }
 gmap(markers, map, options)
 </script>
-
-<% unless @map.comments.nil? %>
-  <% @map.comments.each do |comment| %>
-    <div class="map_show_comment">
-      <%= link_to '', comment_path(comment), class: :comment_link %>
-    	<strong><%= comment.user.username %></strong>さんのコメント
-
-      <% unless comment.star_rank_score.nil? %>
-        <% 5.times do |i| %>
-          <% if comment.star_rank_score >= i+1  %>
-            <%= image_tag 'star-on.png' %>
-          <% else %>
-            <%= image_tag 'star-off.png' %>
-          <% end -%>
-        <% end -%>
-      <% end -%>
-      
-      <br>
-      <p class="map_comment_title"><%= comment.title %></p>
-      <p class="map_comment_text"><%= truncate(comment.text, length: 200) %></p>
-    </div><%# comment %>
-  <% end -%>
-<% end -%>
 
 </div><%#map_show_body%>
 <%= link_to 'コメントを書く', new_comment_path %>
