@@ -1,12 +1,12 @@
 <%= form_for(@comment) do |f| %>
 	<div class="field">
-		<%= f.label :title %>
-		<%= f.text_field :title %>
+		<p class="comment_form_label">タイトル</p>
+		<%= f.text_field :title, id: :comment_form_title %>
 	</div>
 
 	<div class="field">
-		<%= f.label :text %>
-		<%= f.text_area :text %>
+		<p class="comment_form_label">本文</p>
+		<%= f.text_area :text, id: :comment_form_text %>
 	</div>
 
 	<label>画像ファイルを指定:<%= f.file_field :picture_file, size: 50, multiple: true %></label><br>

@@ -1,3 +1,4 @@
+<div id="map_show_body">
 <p id="notice"><%#= notice %></p>
 <% unless @map.user_id.nil? %>
   <%= @map.user.username %>くんが登録した
@@ -35,7 +36,7 @@ gmap(markers, map, options)
 
 <% unless @map.comments.nil? %>
   <% @map.comments.each do |comment| %>
-    <div class="comment">
+    <div class="map_show_comment">
       <%= link_to '', comment_path(comment), class: :comment_link %>
     	<strong><%= comment.user.username %></strong>さんのコメント
 
@@ -50,10 +51,11 @@ gmap(markers, map, options)
       <% end -%>
       
       <br>
-      <p class="commentTitle"><%= comment.title %></p>
-      <p class="commentText"><%= comment.text %></p>
+      <p class="map_comment_title"><%= comment.title %></p>
+      <p class="map_comment_text"><%= truncate(comment.text, length: 200) %></p>
     </div><%# comment %>
   <% end -%>
 <% end -%>
 
+</div><%#map_show_body%>
 <%= link_to 'コメントを書く', new_comment_path %>

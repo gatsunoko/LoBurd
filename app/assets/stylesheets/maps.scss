@@ -4,6 +4,12 @@
 body > #container {
 	height: auto;
 }
+#map_show_body {
+	width: 600px;
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 5px;
+}
 #container {
 	min-height: 100%;
 	height: 100%;
@@ -18,14 +24,24 @@ body > #container {
 	width: 15%;
 }
 .listShow {
+	position: relative;
 	background: #FFA3CA;
 	border-radius: 5px;
 	margin-bottom: 5px;
 }
-.listShow a {
-	padding-left: 5px;
-	text-decoration: none;
-	line-height: 150%;
+.listLink_text {
+	margin: 0;
+	padding: 5px 0 5px 2px;
+	color: blue;
+	font-size: 13px;
+}
+.map_index_listLink {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height:100%;
+	width: 100%;
 }
 .listStar {
 	margin-top: 0;
@@ -34,6 +50,7 @@ body > #container {
 	margin-bottom: 10px;
 }
 #newMapCreate {
+	position: relative;
 	clear: both;
 	text-align: center;
 	line-height: 200%;
@@ -43,19 +60,7 @@ body > #container {
 	border-radius: 10px;
 	background: skyblue;
 }
-#newMapCreate a {
-	text-decoration: none;
-}
-.comment{
-	position: relative;
-	width: 90%;
-	height: 100px;
-	background: #BDFFB8;
-	padding: 1px 5px 2px;
-	margin: 10px;
-	border-radius: 10px;
-}
-.comment a {
+#map_index_newMap {
 	display: block;
 	position: absolute;
 	top: 0;
@@ -63,15 +68,35 @@ body > #container {
 	height:100%;
 	width: 100%;
 }
-.commentTitle {
+#map_index_newMap_text{
+	color: green;
+}
+.map_show_comment{
+	position: relative;
+	width: 98%;
+	height: 100%;
+	background: #BDFFB8;
+	padding: 1px 5px 2px;
+	margin: 10px 0;
+	border-radius: 10px;
+}
+.map_show_comment a {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height:100%;
+	width: 100%;
+}
+.map_comment_title {
 	font-weight: bold;
 	font-size: 15px;
 	display: inline;
 	line-height: 200%;
 	border-bottom: 1px dotted black;
 }
-.commentText {
-	margin: 0;
-	font-size: 12px;
+.map_comment_text {
+	margin: 0 0 10px 10px;
+	font-size: 14px;
 	color: #6B6B6B;
 }

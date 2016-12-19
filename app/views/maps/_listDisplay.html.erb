@@ -1,6 +1,7 @@
 <% @hash.each do |dista| %>
   <div class="listShow">
-    <%= link_to dista[:title], map_path(dista[:map_id]), :target=>["_blank"] %>
+    <%= link_to '', map_path(dista[:map_id]), :target=>["_blank"], class: :map_index_listLink %>
+    <p class="listLink_text"><%= dista[:title] %></p>
     <div class="listStar">
       <% unless dista[:rank_av].nil? %>
         <% 5.times do |i| %>
