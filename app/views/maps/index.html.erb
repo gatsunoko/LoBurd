@@ -29,10 +29,6 @@
                     lower_lat: bounds.getSouthWest().lat(),
                     upper_lng: bounds.getNorthEast().lng(),
                     lower_lng: bounds.getSouthWest().lng()
-                    // upper_lat: handler.bounds.serviceObject.f.b,
-                    // lower_lat: handler.bounds.serviceObject.f.f,
-                    // upper_lng: handler.bounds.serviceObject.b.f,
-                    // lower_lng: handler.bounds.serviceObject.b.b
                     },
             dataType: "script",
             success: function(data) {
@@ -44,10 +40,14 @@
     });
 </script>
 </div><%#mapDisplay%>
-<div id="newMapCreate">
-  <%= link_to '', new_map_path, id: :map_index_newMap %>
-  <P id="map_index_newMap_">新しいマップを登録</P>
-</div>
+<% unless current_user.nil? %>
+  <% if current_user.user_level > 1 %>
+    <div id="newMapCreate">
+      <%= link_to '', new_map_path, id: :map_index_newMap %>
+      <P id="map_index_newMap_">新しいマップを登録</P>
+    </div>
+  <% end -%>
+<% end -%>
 </div><%#mapArea%>
 <div id="listDisplay">
 </div><%#=listDisplay%>

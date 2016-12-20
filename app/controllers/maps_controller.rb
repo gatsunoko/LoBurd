@@ -22,10 +22,18 @@ class MapsController < ApplicationController
 	end
 
 	def new
-		@map = Map.new
+		if current_user.user_level > 1
+			@map = Map.new
+		else
+			redirect_to maps_path
+		end
 	end
 
 	def create
+		unless current_user.user_level > 1
+			redirect_to maps_path
+		end
+
     @map = Map.new(map_params)
     @map.user_id = current_user.id
     respond_to do |format|
@@ -124,7 +132,7 @@ class MapsController < ApplicationController
 			marker.json({title: map.title})
 		end
 	end
-
+	#ある場所から、別の場所への距離を計算してkmで返す
 	def distance(pos1, pos2, cen1, cen2)
 		Geocoder::Calculations.distance_between([pos1, pos2], [cen1, cen2]) * 1000.0
 	end
