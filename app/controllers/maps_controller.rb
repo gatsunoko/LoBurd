@@ -4,11 +4,11 @@ class MapsController < ApplicationController
 	before_action :authenticate_user!, only: [:new, :edit]
 
 	def index
-		set_map_index(false, 35.170915, 136.8815369)
+		set_map_index(false, 35.170915, 136.8815369, "")
 	end
 
 	def ajax
-		set_map_index(true, params[:lat], params[:lng])
+		set_map_index(true, params[:lat], params[:lng], params[:search_params])
 	end
 
 	def show
@@ -64,10 +64,10 @@ class MapsController < ApplicationController
       @map = Map.find(params[:id])
     end
 
-    def set_map_index(ajax_Judg, m_lat, m_lng)
+    def set_map_index(ajax_Judg, m_lat, m_lng, searchParams)
 		@maps = Map.all
 		if (ajax_Judg)
-			@maps = Map.where('latitude > ? AND latitude < ? AND longitude > ? AND longitude < ?', params[:lower_lat], params[:upper_lat], params[:lower_lng], params[:upper_lng]).order(rank_av: :desc)
+			@maps = Map.where('latitude > ? AND latitude < ? AND longitude > ? AND longitude < ? AND title like ?', params[:lower_lat], params[:upper_lat], params[:lower_lng], params[:upper_lng], '%'+searchParams+'%').order(rank_av: :desc)
 		else
 			@maps = Map.all
 		end

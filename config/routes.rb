@@ -3,11 +3,14 @@ Rails.application.routes.draw do
 
   	post '/maps/ajax', to: 'maps#ajax'
   	get '/maps/ajax', to: 'maps#ajax'
-  	#get '/ajax' => 'maps#ajax', as: :ajax
 
 	root 'maps#index'
 	resources :users
-	resources :maps
+	resources :maps do
+		collection do
+			get :Search
+		end
+	end
 	resources :comments
   	get 'homes/index'
 

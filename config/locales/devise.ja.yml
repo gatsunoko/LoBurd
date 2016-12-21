@@ -63,4 +63,5 @@ ja:
              username: "名前: "
              password: "パスワード: "
              password_confirmation: "パスワード確認: "
+             current_password: "現在のパスワード: "
              email: "メールアドレス: "
