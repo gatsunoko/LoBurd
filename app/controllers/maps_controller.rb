@@ -81,10 +81,10 @@ class MapsController < ApplicationController
 		@hash = Gmaps4rails.build_markers(@maps) do |map, marker|
 			marker.lat map.latitude
 			marker.lng map.longitude
-			dis = distance(map.latitude, map.longitude, m_lat, m_lng)#特定の場所からの距離を計算する関数
+			#dis = distance(map.latitude, map.longitude, m_lat, m_lng)#特定の場所からの距離を計算する関数
 			marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
-			marker.json({title: map.title, c_distance: dis, rank_av: map.rank_av, map_id: map.id})
-			#marker.json({title: map.title})
+			#marker.json({title: map.title, c_distance: dis, rank_av: map.rank_av, map_id: map.id})
+			marker.json({title: map.title, rank_av: map.rank_av, map_id: map.id})
 			
 			unless map.rank_av.nil?
 				if map.rank_av >= 4

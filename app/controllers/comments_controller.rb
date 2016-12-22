@@ -14,6 +14,7 @@ class CommentsController < ApplicationController
   end
 
   def new
+    #既にその地点にコメントをしていたらeditに飛ぶようにする
     if 0 < Comment.where('user_id = ? AND map_id = ?', current_user.id, session[:mapid]).count
       @comment = Comment.where('user_id = ? AND map_id = ?', current_user.id, session[:mapid]).first
       redirect_to comment_path(@comment) and return
@@ -26,6 +27,7 @@ class CommentsController < ApplicationController
   end
 
   def create
+    #既にその地点にコメントをしていたらeditに飛ぶようにする
     if 0 < Comment.where('user_id = ? AND map_id = ?', current_user.id, session[:mapid]).count
       @comment = Comment.where('user_id = ? AND map_id = ?', current_user.id, session[:mapid]).first
       redirect_to comment_path(@comment) and return
@@ -56,7 +58,6 @@ class CommentsController < ApplicationController
   end
 
   def update
-    #raise params.inspect
     @map = Map.find(@comment.map_id)
     @up_result = {}
 

@@ -4,7 +4,7 @@
     <p class="listLink_text"><%= dista[:title] %></p>
     <div class="listStar">
       <% unless dista[:rank_av].nil? %>
-        <% 5.times do |i| %>
+        <% 5.times do |i| %><%# 評価に応じて星を表示する %>
           <% if dista[:rank_av] >= i+1 %>
             <%= image_tag 'star-on.png' %>
           <% elsif dista[:rank_av] > i && dista[:rank_av] < i+1 %>
@@ -13,7 +13,7 @@
             <%= image_tag 'star-off.png' %>
           <% end -%>
         <% end -%>
-      <% else %>
+      <% else %><%# 空の場合は空の星を5個表示%>
         <% 5.times do |i| %>
           <%= image_tag 'star-off.png' %>
         <% end -%>
