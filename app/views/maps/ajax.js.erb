@@ -8,8 +8,9 @@ if (infoWindow == false) {
 	//マーカーにイベントを追加
 	_.each(markers, function(marker, index) {
 		google.maps.event.addListener(marker.serviceObject, 'click', function(event) {
+			clearTimeout(timeout_id);
 			infoWindow = true; 
-			setTimeout("infoWindow = false", 1000);
+			timeout_id = setTimeout("infoWindow = false", 1000);
 		});
 	});
 
