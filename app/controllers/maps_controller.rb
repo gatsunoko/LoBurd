@@ -59,6 +59,13 @@ class MapsController < ApplicationController
 		end
 	end
 
+	def destroy
+		if current_user.user_level > 1 && @map.user_id == current_user.id
+			@map.destroy
+			redirect_to maps_path
+		end
+	end
+
   private
     def set_map
       @map = Map.find(params[:id])

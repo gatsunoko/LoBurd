@@ -76,3 +76,10 @@ gmap(markers, map, options)
 
 </div><%#map_show_body%>
 <%= link_to 'コメントを書く', new_comment_path %>
+
+<% unless current_user.nil? %>
+  <% if current_user.user_level > 1 && @map.user_id == current_user.id %>
+    <br><br>
+    <%= link_to 'この場所を削除する', map_path(@map), method: :delete, data: { confirm: '削除してもいいですか？' } %>
+  <% end -%>
+<% end -%>
