@@ -17,3 +17,4 @@
 //= require underscore
 //= require gmaps/google
 //= require lity.min
+//= require bootstrap-sprockets
