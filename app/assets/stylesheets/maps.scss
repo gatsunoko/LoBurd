@@ -1,35 +1,27 @@
 // Place all the styles related to the maps controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-body > #container {
-	height: auto;
-}
-#container {
-/*	min-height: 100%;
-	height: 100%;
-	border: 1px solid pink;*/
-}
-#map_show_body {
-	width: 600px;
-	border: 2px solid black;
+#newMapCreate {
+	position: relative;
+	clear: both;
+	text-align: center;
+	line-height: 200%;
+	width: 30%;
+	height: 2em;
+	margin: 0 auto;
 	border-radius: 10px;
-	padding: 5px;
+	border: 1px solid orange;
+	background: skyblue;
 }
-#map_index_search_form {
-	margin: 10px 0 10px;
+#map_index_newMap {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height:100%;
+	width: 100%;
 }
-#map_index_search_label {
-	margin: 0;
-	display: inline;
-}
-#mapArea {
-	float: left;
-	width: 85%;
-}
-#listDisplay {
-	float: right;
-	width: 15%;
-}
+
 .listShow {
 	position: relative;
 	background: #FFA3CA;
@@ -50,34 +42,7 @@ body > #container {
 	height:100%;
 	width: 100%;
 }
-.listStar {
-	margin-top: 0;
-}
-#mapDisplay {
-	margin-bottom: 10px;
-}
-#newMapCreate {
-	position: relative;
-	clear: both;
-	text-align: center;
-	line-height: 200%;
-	width: 30%;
-	height: 2em;
-	margin: 0 auto;
-	border-radius: 10px;
-	background: skyblue;
-}
-#map_index_newMap {
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	height:100%;
-	width: 100%;
-}
-#map_index_newMap_text{
-	color: green;
-}
+
 .map_show_comment{
 	position: relative;
 	width: 98%;

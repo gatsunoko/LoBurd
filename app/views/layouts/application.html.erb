@@ -13,30 +13,33 @@
     <% end -%>
     <script src="https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/src/markerclusterer.js"></script>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <div id="header" class="container" >
+      <header>
+        <nav>
+          <!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
+          <% if user_signed_in? %> 
+            <!-- current_user は現在ログインしているUserオブジェクトを返すdeviseのHelperメソッド -->
+            <!-- *_path はUserモデルを作成したときに、
+              deviseにより自動で作成されてますので、rake routesで確認できます -->
+            Logged in as <strong><%= current_user.username %></strong>.
+            <%= link_to 'プロフィール変更', edit_user_registration_path %> |
+            <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+          <% else %>
+            <%= link_to "サインイン", new_user_registration_path %> |
+            <%= link_to "ログイン", new_user_session_path %>
+          <% end %>
+        </nav>
+      </header>
 
-  <header>
-    <nav>
-      <!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
-      <% if user_signed_in? %> 
-        <!-- current_user は現在ログインしているUserオブジェクトを返すdeviseのHelperメソッド -->
-        <!-- *_path はUserモデルを作成したときに、
-          deviseにより自動で作成されてますので、rake routesで確認できます -->
-        Logged in as <strong><%= current_user.username %></strong>.
-        <%= link_to 'プロフィール変更', edit_user_registration_path %> |
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-      <% else %>
-        <%= link_to "サインイン", new_user_registration_path %> |
-        <%= link_to "ログイン", new_user_session_path %>
-      <% end %>
-    </nav>
-  </header>
-
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+<!--         <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p> -->
+        <%= yield %>
+    </div>
   </body>
 </html>

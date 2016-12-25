@@ -1,83 +1,91 @@
 <div id="container">
-<div id="mapArea">
-<div id="mapDisplay">
+
 <div id="map_index_search_form">
   <p id="map_index_search_label">キーワードで絞込</p>
   <input type="text" name="name" size="30" id="search_params" onchange="search_action(this)">
 </div><%#search_form%>
 
-<div style='width: 800px;'>
-  <div id="map" style='width: 800px; height: 600px;'></div>
-</div>
+<div class="row">
+  <div id="listDisplay" class="col-sm-3 col-sm-push-9 hidden-xs">
+  </div><%#=listDisplay%>
 
-<script type="text/javascript">
-  var timeout_id = null;
-  var infoWindow = false;
-	var mapOptions = { mapTypeControl: google.maps.mapTypeControl = false,
-					   streetViewControl: google.maps.streetViewControl = false };
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: mapOptions, internal: {id: 'map'}}, function(){
-      markers = handler.addMarkers(<%=raw @hash.to_json %>);
-      handler.bounds.extendWith(markers);
-      //handler.fitMapToBounds();
-      handler.getMap().setZoom(13);
-      handler.getMap().setCenter(new google.maps.LatLng(35.165068597526094, 136.89208984375));
-      //var initialBounds = handler.getBounds();
-      google.maps.event.addListener(handler.getMap(), "idle", function(event) {
-        var center = handler.getMap().getCenter();
-        var bounds = handler.getMap().getBounds();
-        $.ajax({
-            url: "maps/ajax",
-            type: "get",
-            data: {lat: center.lat,
-                    lng: center.lng,
-                    upper_lat: bounds.getNorthEast().lat(),
-                    lower_lat: bounds.getSouthWest().lat(),
-                    upper_lng: bounds.getNorthEast().lng(),
-                    lower_lng: bounds.getSouthWest().lng(),
-                    search_params: document.getElementById('search_params').value
-                    },
-            dataType: "script",
-            success: function(data) {
-            },
-            error: function(data) {
-            }
+  <div id="mapArea" class="col-sm-9 col-sm-pull-3">
+  <div id="mapDisplay">
+<!--   <div style='width: 800px;'>
+    <div id="map" style='width: 800px; height: 600px;'></div>
+  </div> -->
+
+  <div style='width: 100%;'>
+    <div id="map" style='width: 100%; height: 600px;'></div>
+  </div>
+
+  <script type="text/javascript">
+    var timeout_id = null;
+    var infoWindow = false;
+  	var mapOptions = { mapTypeControl: google.maps.mapTypeControl = false,
+  					   streetViewControl: google.maps.streetViewControl = false };
+      handler = Gmaps.build('Google');
+      handler.buildMap({ provider: mapOptions, internal: {id: 'map'}}, function(){
+        markers = handler.addMarkers(<%=raw @hash.to_json %>);
+        handler.bounds.extendWith(markers);
+        //handler.fitMapToBounds();
+        handler.getMap().setZoom(13);
+        handler.getMap().setCenter(new google.maps.LatLng(35.165068597526094, 136.89208984375));
+        //var initialBounds = handler.getBounds();
+        google.maps.event.addListener(handler.getMap(), "idle", function(event) {
+          var center = handler.getMap().getCenter();
+          var bounds = handler.getMap().getBounds();
+          $.ajax({
+              url: "maps/ajax",
+              type: "get",
+              data: {lat: center.lat,
+                      lng: center.lng,
+                      upper_lat: bounds.getNorthEast().lat(),
+                      lower_lat: bounds.getSouthWest().lat(),
+                      upper_lng: bounds.getNorthEast().lng(),
+                      lower_lng: bounds.getSouthWest().lng(),
+                      search_params: document.getElementById('search_params').value
+                      },
+              dataType: "script",
+              success: function(data) {
+              },
+              error: function(data) {
+              }
+          });
         });
       });
-    });
 
-  function search_action(obj) {
-    var center = handler.getMap().getCenter();
-    var bounds = handler.getMap().getBounds();
-    $.ajax({
-        url: "maps/ajax",
-        type: "get",
-        data: {lat: center.lat,
-                lng: center.lng,
-                upper_lat: bounds.getNorthEast().lat(),
-                lower_lat: bounds.getSouthWest().lat(),
-                upper_lng: bounds.getNorthEast().lng(),
-                lower_lng: bounds.getSouthWest().lng(),
-                search_params: document.getElementById('search_params').value
-                },
-        dataType: "script",
-        success: function(data) {
-        },
-        error: function(data) {
-        }
-    });
-  }
-</script>
-</div><%#mapDisplay%>
-<% unless current_user.nil? %>
-  <% if current_user.user_level > 1 %>
-    <div id="newMapCreate">
-      <%= link_to '', new_map_path, id: :map_index_newMap %>
-      <P id="map_index_newMap_">新しいマップを登録</P>
-    </div>
+    function search_action(obj) {
+      var center = handler.getMap().getCenter();
+      var bounds = handler.getMap().getBounds();
+      $.ajax({
+          url: "maps/ajax",
+          type: "get",
+          data: {lat: center.lat,
+                  lng: center.lng,
+                  upper_lat: bounds.getNorthEast().lat(),
+                  lower_lat: bounds.getSouthWest().lat(),
+                  upper_lng: bounds.getNorthEast().lng(),
+                  lower_lng: bounds.getSouthWest().lng(),
+                  search_params: document.getElementById('search_params').value
+                  },
+          dataType: "script",
+          success: function(data) {
+          },
+          error: function(data) {
+          }
+      });
+    }
+  </script>
+  </div><%#mapDisplay%>
+  <% unless current_user.nil? %>
+    <% if current_user.user_level > 1 %>
+      <div id="newMapCreate">
+        <%= link_to '', new_map_path, id: :map_index_newMap %>
+        <P id="map_index_newMap_">新しいマップを登録</P>
+      </div>
+    <% end -%>
   <% end -%>
-<% end -%>
-</div><%#mapArea%>
-<div id="listDisplay">
-</div><%#=listDisplay%>
+  </div><%#mapArea%>
+</div><%# row %>
 </div><%#=container%>
