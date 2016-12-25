@@ -1,11 +1,11 @@
 <%= form_for(@comment) do |f| %>
 	<div class="field">
-		<p class="comment_form_label">タイトル</p>
+		<%= f.label :title %>
 		<%= f.text_field :title, id: :comment_form_title %>
 	</div>
 
 	<div class="field">
-		<p class="comment_form_label">本文</p>
+		<%= f.label :text %>
 		<%= f.text_area :text, id: :comment_form_text %>
 	</div>
 
