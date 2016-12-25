@@ -2,7 +2,8 @@
 function gmap(markers, user, {draggable = false}){
 	var mapOptions = { mapTypeControl: google.maps.mapTypeControl = false,
 					   streetViewControl: google.maps.streetViewControl = false,
-					   draggable: draggable };
+					   draggable: draggable,
+					   scrollwheel: draggable };
 	handler = Gmaps.build('Google');
 	handler.buildMap({provider: mapOptions, internal: {id: 'map'}}, function(){
 		markers = handler.addMarkers(markers, {draggable: draggable});
