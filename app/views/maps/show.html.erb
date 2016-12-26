@@ -1,4 +1,4 @@
-<div id="map_show_body">
+<div id="map_show_body" class="col-sm-8">
 
 <p id="notice"><%#= notice %></p>
 <% unless @map.user_id.nil? %>
@@ -74,7 +74,6 @@ var options = {
 gmap(markers, map, options)
 </script>
 
-</div><%#map_show_body%>
 <%= link_to 'コメントを書く', new_comment_path %>
 
 <% unless current_user.nil? %>
@@ -83,3 +82,8 @@ gmap(markers, map, options)
     <%= link_to 'この場所を削除する', map_path(@map), method: :delete, data: { confirm: '削除してもいいですか？' } %>
   <% end -%>
 <% end -%>
+
+</div><%#map_show_body%>
+<div class="col-sm-4" style="border: 1px solid blue;">
+  sidebar
+</div>

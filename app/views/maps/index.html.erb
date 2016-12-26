@@ -1,15 +1,19 @@
 <div id="container">
 
-<div id="map_index_search_form">
-  <p id="map_index_search_label">キーワードで絞込</p>
-  <input type="text" name="name" size="30" id="search_params" onchange="search_action(this)">
-</div><%#search_form%>
+<div class="row">
+<div id="map_index_search_form" class="form-group col-sm-6">
+  <label class="control-label col-sm-3" style="padding: 0" >キーワードで絞込</label>
+  <div class="col-sm-6">
+    <input type="text" name="name" size="30" id="search_params" class="form-control" onchange="search_action(this)">
+  </div>
+</div><%#map_index_search_form%>
+</div>
 
 <div class="row">
-  <div id="listDisplay" class="col-sm-3 col-sm-push-9 hidden-xs">
+  <div id="listDisplay" class="col-lg-2 col-sm-3 col-sm-push-9 hidden-xs">
   </div><%#=listDisplay%>
 
-  <div id="mapArea" class="col-sm-9 col-sm-pull-3">
+  <div id="mapArea" class="col-lg-10 col-sm-9 col-sm-pull-3">
   <div id="mapDisplay">
 <!--   <div style='width: 800px;'>
     <div id="map" style='width: 800px; height: 600px;'></div>
