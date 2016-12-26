@@ -26,8 +26,8 @@
   <script type="text/javascript">
     var timeout_id = null;
     var infoWindow = false;
-  	var mapOptions = { mapTypeControl: google.maps.mapTypeControl = false,
-  					   streetViewControl: google.maps.streetViewControl = false };
+    var mapOptions = { mapTypeControl: google.maps.mapTypeControl = false,
+               streetViewControl: google.maps.streetViewControl = false };
       handler = Gmaps.build('Google');
       handler.buildMap({ provider: mapOptions, internal: {id: 'map'}}, function(){
         markers = handler.addMarkers(<%=raw @hash.to_json %>);

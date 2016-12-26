@@ -1,5 +1,5 @@
 <%= link_to object.title, map_path(object), :target=>["_blank"] %><br>
-<%= object.rank_av %>
+<%= (object.rank_av.to_f).round(2) %>
 
 <% unless object.rank_av.nil? %>
 	<% 5.times do |i| %>

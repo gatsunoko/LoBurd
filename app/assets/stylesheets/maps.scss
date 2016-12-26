@@ -2,72 +2,67 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 #newMapCreate {
-	position: relative;
-	clear: both;
-	text-align: center;
-	line-height: 200%;
-	width: 30%;
-	height: 2em;
-	margin: 0 auto;
-	border-radius: 10px;
-	border: 1px solid orange;
-	background: skyblue;
-}
-#map_index_newMap {
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	height:100%;
-	width: 100%;
+  position: relative;
+  clear: both;
+  text-align: center;
+  line-height: 200%;
+  width: 30%;
+  height: 2em;
+  margin: 0 auto;
+  border-radius: 10px;
+  border: 1px solid orange;
+  background: skyblue;
 }
 .listShow {
-	position: relative;
-	background: #FFA3CA;
-	border-radius: 5px;
-	margin-bottom: 5px;
+  position: relative;
+  background: #FFA3CA;
+  border-radius: 5px;
+  margin-bottom: 5px;
 }
 .listLink_text {
-	margin: 0;
-	padding: 5px 0 5px 2px;
-	color: blue;
-	font-size: 13px;
+  margin: 0;
+  padding: 5px 0 5px 2px;
+  color: blue;
+  font-size: 13px;
 }
 .map_index_listLink {
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	height:100%;
-	width: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height:100%;
+  width: 100%;
 }
-
+#map_show_listStar {
+  display: inline;
+}
+#map_show_listStar h4 {
+  display: inline;
+}
+#map_show_comments a {
+  text-decoration: none;
+}
 .map_show_comment{
-	position: relative;
-	width: 98%;
-	height: 100%;
-	background: #BDFFB8;
-	padding: 1px 5px 2px;
-	margin: 10px 0;
-	border-radius: 10px;
+  position: relative;
+  width: 98%;
+  height: 100%;
+  background: #D7D7D7;
+  padding: 1px 5px 2px;
+  margin: 10px 0;
+  border-radius: 10px;
 }
-.map_show_comment a {
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	height:100%;
-	width: 100%;
+.map_show_comment:hover {
+  background: #949494;
 }
 .map_comment_title {
-	font-weight: bold;
-	font-size: 15px;
-	display: inline;
-	line-height: 200%;
-	border-bottom: 1px dotted black;
+  font-weight: bold;
+  font-size: 15px;
+  display: inline;
+  line-height: 200%;
+  border-bottom: 1px dotted black;
 }
 .map_comment_text {
-	margin: 0 0 10px 10px;
-	font-size: 14px;
-	color: #6B6B6B;
+  margin: 0 0 10px 10px;
+  font-size: 14px;
+  color: #6B6B6B;
 }
