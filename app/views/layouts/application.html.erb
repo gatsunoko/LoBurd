@@ -19,7 +19,7 @@
   </head>
 
   <body>
-    <div id="header" class="container" >
+    <div class="container" >
       <header>
         <nav>
           <!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
@@ -36,10 +36,9 @@
           <% end %>
         </nav>
       </header>
-
 <!--         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p> -->
-        <%= yield %>
+      <%= yield %>
     </div>
   </body>
 </html>

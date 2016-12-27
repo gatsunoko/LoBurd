@@ -74,34 +74,40 @@ class MapsController < ApplicationController
     end
 
     def set_map_index(ajax_Judg, m_lat, m_lng, searchParams)
-    @maps = Map.all
-    if (ajax_Judg)
-      @maps = Map.where('latitude > ? AND latitude < ? AND longitude > ? AND longitude < ? AND title like ?',
-       params[:lower_lat], params[:upper_lat], params[:lower_lng], params[:upper_lng], '%'+searchParams+'%').order(rank_av: :desc)
-    else
-      @maps = Map.all
-    end
-    @hash = Gmaps4rails.build_markers(@maps) do |map, marker|
-      marker.lat map.latitude
-      marker.lng map.longitude
-      #dis = distance(map.latitude, map.longitude, m_lat, m_lng)#特定の場所からの距離を計算する関数
-      marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
-      #marker.json({title: map.title, c_distance: dis, rank_av: map.rank_av, map_id: map.id})
-      marker.json({title: map.title, rank_av: map.rank_av, map_id: map.id})
-      
-      unless map.rank_av.nil?
-        if map.rank_av >= 4
-          marker.picture({
-            url: ActionController::Base.helpers.asset_path('gold'),
-            width: "26",
-            height: "26"
-          })
-        elsif map.rank_av >= 2
-          marker.picture({
-            url: ActionController::Base.helpers.asset_path('silver'),
-            width: "26",
-            height: "26"
-          })
+      if (ajax_Judg)
+        @maps = Map.where('latitude > ? AND latitude < ? AND longitude > ? AND longitude < ? AND title like ?',
+         params[:lower_lat], params[:upper_lat], params[:lower_lng], params[:upper_lng], '%'+searchParams+'%').order(rank_av: :desc)
+      else
+        @maps = Map.all
+      end
+      @hash = Gmaps4rails.build_markers(@maps) do |map, marker|
+        marker.lat map.latitude
+        marker.lng map.longitude
+        #dis = distance(map.latitude, map.longitude, m_lat, m_lng)#特定の場所からの距離を計算する関数
+        marker.infowindow render_to_string(:partial => "/maps/my_template", :locals => { :object => map})
+        #marker.json({title: map.title, c_distance: dis, rank_av: map.rank_av, map_id: map.id})
+        marker.json({title: map.title, rank_av: map.rank_av, map_id: map.id})
+        
+        unless map.rank_av.nil?
+          if map.rank_av >= 4
+            marker.picture({
+              url: ActionController::Base.helpers.asset_path('gold'),
+              width: "26",
+              height: "26"
+            })
+          elsif map.rank_av >= 2
+            marker.picture({
+              url: ActionController::Base.helpers.asset_path('silver'),
+              width: "26",
+              height: "26"
+            })
+          else
+            marker.picture({
+              url: ActionController::Base.helpers.asset_path('bronze'),
+              width: "26",
+              height: "26"
+            })
+          end
         else
           marker.picture({
             url: ActionController::Base.helpers.asset_path('bronze'),
@@ -109,26 +115,19 @@ class MapsController < ApplicationController
             height: "26"
           })
         end
-      else
-        marker.picture({
-          url: ActionController::Base.helpers.asset_path('bronze'),
-          width: "26",
-          height: "26"
-        })
       end
-    end
-    #マーカーのハッシュを近い順にソート
-    # @hash.sort! do |a, b|
-    #   a[:c_distance] <=> b[:c_distance]
-    # end
-    #rank_av上位20件を表示するようにする
-    @hash.slice!(20..-1)
-    
-    #近い順に表示する
-    #@hashDis = @hash
-    # @hashDis.sort! do |a, b|
-    #   a[:c_distance] <=> b[:c_distance]
-    # end
+      #マーカーのハッシュを近い順にソート
+      # @hash.sort! do |a, b|
+      #   a[:c_distance] <=> b[:c_distance]
+      # end
+      #rank_av上位20件を表示するようにする
+      @hash.slice!(20..-1)
+      
+      #近い順に表示する
+      #@hashDis = @hash
+      # @hashDis.sort! do |a, b|
+      #   a[:c_distance] <=> b[:c_distance]
+      # end
     end
 
     def map_params

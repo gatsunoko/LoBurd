@@ -46,21 +46,27 @@
           
           <br>
           <p class="map_comment_title"><%= comment.title %></p>
-          <p class="map_comment_text"><%= truncate(comment.text, length: 200) %></p>
+          <p class="map_comment_text"><%= truncate(comment.text, length: 100) %></p>
 
           <% copicCount = 0 %>
           <% if Rails.env == 'production' %>
-            <% comment.pictures.each do |picture| %>
-              <%= image_tag("http://s3-ap-northeast-1.amazonaws.com/gatsunoko.loburd.com/images/#{picture.id}min"+File.extname("#{ picture.picture_name }").downcase, width: 110) %>
-              <% copicCount += 1 %>
-              <% break if copicCount > 4  %>
-            <% end -%>
+            <div class="row">
+              <% comment.pictures.each do |picture| %>
+                <%= image_tag("http://s3-ap-northeast-1.amazonaws.com/gatsunoko.loburd.com/images/#{picture.id}min"+File.extname("#{ picture.picture_name }").downcase,
+                    :class => 'map_show_comments_pic col-xs-6 col-sm-4') %>
+                <% copicCount += 1 %>
+                <% break if copicCount > 4  %>
+              <% end -%>
+            </div>
           <% else %>
-            <% comment.pictures.each do |picture| %>
-              <%= image_tag("/docs/#{ picture.id }min"+File.extname("#{ picture.picture_name }").downcase, width: 110) %>
-              <% copicCount += 1 %>
-              <% break if copicCount > 4  %>
-            <% end -%>
+            <div class="row">
+              <% comment.pictures.each do |picture| %>
+                <%= image_tag("/docs/#{ picture.id }min"+File.extname("#{ picture.picture_name }").downcase,
+                    :class => 'map_show_comments_pic col-xs-6 col-sm-4') %>
+                <% copicCount += 1 %>
+                <% break if copicCount > 4  %>
+              <% end -%>
+            </div>
           <% end -%>
         </div><%# map_show_comment %>
         <% end -%>
