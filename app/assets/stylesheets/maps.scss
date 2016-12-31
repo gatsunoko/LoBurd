@@ -14,10 +14,14 @@
   background: skyblue;
 }
 .listShow {
-  position: relative;
   background: #FFA3CA;
   border-radius: 5px;
   margin-bottom: 5px;
+}
+.listShow a {
+  text-decoration: none;
+}
+.listShow a:hover {
 }
 .listLink_text {
   margin: 0;
@@ -25,13 +29,13 @@
   color: blue;
   font-size: 13px;
 }
-.map_index_listLink {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height:100%;
-  width: 100%;
+.map_index_markerLinks a {
+  text-decoration: none;
+  color: green;
+}
+.map_index_markerLinks a:hover {
+  text-decoration: none;
+  color: skyblue;
 }
 
 #map_show_listStar {

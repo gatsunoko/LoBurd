@@ -1,18 +1,22 @@
-<%= link_to object.title, map_path(object), :target=>["_blank"] %><br>
-<%= (object.rank_av.to_f).round(2) %>
+<div class="map_index_markerLinks">
+  <%= link_to(map_path(object), :target=>["_blank"]) do %>
+    <%= object.title %><br>
+    <%= (object.rank_av.to_f).round(2) %>
 
-<% unless object.rank_av.nil? %>
-  <% 5.times do |i| %>
-    <% if object.rank_av >= i+1 %>
-      <%= image_tag 'star-on.png' %>
-    <% elsif object.rank_av > i && object.rank_av < i+1 %>
-      <%= image_tag 'star-half.png' %>
-    <% else %>
-      <%= image_tag 'star-off.png' %>
+    <% unless object.rank_av.nil? %>s
+      <% 5.times do |i| %>
+        <% if object.rank_av >= i+1 %>
+          <%= image_tag 'star-on.png' %>
+        <% elsif object.rank_av > i && object.rank_av < i+1 %>
+          <%= image_tag 'star-half.png' %>
+        <% else %>
+          <%= image_tag 'star-off.png' %>
+        <% end -%>
+      <% end -%>
+    <% else %><%# 空の場合は空の星を5個表示%>
+      <% 5.times do |i| %>
+        <%= image_tag 'star-off.png' %>
+      <% end -%>
     <% end -%>
   <% end -%>
-<% else %><%# 空の場合は空の星を5個表示%>
-  <% 5.times do |i| %>
-    <%= image_tag 'star-off.png' %>
-  <% end -%>
-<% end -%>
+</div>

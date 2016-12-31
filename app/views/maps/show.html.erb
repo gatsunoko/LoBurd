@@ -55,7 +55,7 @@
                 <%= image_tag("http://s3-ap-northeast-1.amazonaws.com/gatsunoko.loburd.com/images/#{picture.id}min"+File.extname("#{ picture.picture_name }").downcase,
                     :class => 'map_show_comments_pic col-xs-6 col-sm-4') %>
                 <% copicCount += 1 %>
-                <% break if copicCount > 4  %>
+                <% break if copicCount > 5  %>
               <% end -%>
             </div>
           <% else %>
@@ -64,7 +64,7 @@
                 <%= image_tag("/docs/#{ picture.id }min"+File.extname("#{ picture.picture_name }").downcase,
                     :class => 'map_show_comments_pic col-xs-6 col-sm-4') %>
                 <% copicCount += 1 %>
-                <% break if copicCount > 4  %>
+                <% break if copicCount > 5  %>
               <% end -%>
             </div>
           <% end -%>
