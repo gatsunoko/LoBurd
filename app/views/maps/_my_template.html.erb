@@ -3,7 +3,7 @@
     <%= object.title %><br>
     <%= (object.rank_av.to_f).round(2) %>
 
-    <% unless object.rank_av.nil? %>s
+    <% unless object.rank_av.nil? %>
       <% 5.times do |i| %>
         <% if object.rank_av >= i+1 %>
           <%= image_tag 'star-on.png' %>
