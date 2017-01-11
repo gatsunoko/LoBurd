@@ -18,14 +18,17 @@ class MapsController < ApplicationController
   end
 
   def edit
+    #@map_tags = Map_tag.where('map_id = ? AND map_mster = ?', @map.id, true)
     unless @map.user_id == current_user.id
       redirect_to map_path(@map)
     end
+    @map.tags.build
   end
 
   def new
     if current_user.user_level > 1
       @map = Map.new
+      @map.tags.build
     else
       redirect_to maps_path
     end
@@ -50,6 +53,7 @@ class MapsController < ApplicationController
   end
 
   def update
+    #raise.params.inspect
     respond_to do |format|
       if @map.update(map_params)
         format.html { redirect_to @map, notice: 'map was successfully updated.' }
@@ -131,7 +135,13 @@ class MapsController < ApplicationController
     end
 
     def map_params
-      params.require(:map).permit(:user_id, :map_id, :title, :address, :latitude, :longitude)
+      params.require(:map).permit(:user_id,
+                                  :map_id,
+                                  :title,
+                                  :address,
+                                  :latitude,
+                                  :longitude,
+                                  tags_attributes: [:tag_name, :tag_master, :_destroy])
     end
 
   def set_marker

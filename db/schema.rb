@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161220013246) do
+ActiveRecord::Schema.define(version: 20170111163754) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 20161220013246) do
     t.datetime "updated_at",   null: false
     t.integer  "comment_id"
     t.text     "picture_path"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "tag_name"
+    t.boolean  "tag_master"
+    t.integer  "map_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -2,6 +2,9 @@ class Map < ApplicationRecord
 	belongs_to :user, optional: true
 	has_many :comments, dependent: :destroy
 
+  has_many :tags, dependent: :destroy
+  accepts_nested_attributes_for :tags, allow_destroy: true
+
 	validates :title, presence: { message: 'タイトルは必須です'}
 	validates :address, presence: { message: 'だいたいの住所は必須です'}
 

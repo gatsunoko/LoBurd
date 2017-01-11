@@ -8,6 +8,12 @@
   <strong>スポット名:</strong>
   <%= @map.title %>
 </p>
+<p>
+  <strong>タグ:</strong>
+  <% @map.tags.each do |tag| %>
+    #<%= tag.tag_name %>, 
+  <% end -%>
+</p>
 
 <div id="map_show_listStar">
   <% unless @map.rank_av.nil? %>
