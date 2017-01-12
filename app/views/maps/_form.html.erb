@@ -30,15 +30,15 @@
     <%= f.text_field :longitude %>
   </div>
 
-  <div class="field">
-    <%= f.fields_for :tags do |sf| %>
-      <%= sf.label :tag_name %>
+  <%= f.fields_for :tags do |sf| %>
+    <div class="field">
+      <%= sf.label :tag_name, 'タグ: ' %>
       <%= sf.text_field :tag_name %>
       <%= sf.hidden_field :tag_master, value: true %>
       <%= sf.check_box :_destroy %>
       <%= sf.label :_destroy,"削除" %><br>
-    <% end -%>
-  </div>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= f.submit %>

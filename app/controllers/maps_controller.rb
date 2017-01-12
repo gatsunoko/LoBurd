@@ -80,7 +80,11 @@ class MapsController < ApplicationController
     def set_map_index(ajax_Judg, m_lat, m_lng, searchParams)
       if (ajax_Judg)
         @maps = Map.where('latitude > ? AND latitude < ? AND longitude > ? AND longitude < ? AND title like ?',
-         params[:lower_lat], params[:upper_lat], params[:lower_lng], params[:upper_lng], '%'+searchParams+'%').order(rank_av: :desc)
+         params[:lower_lat],
+         params[:upper_lat],
+         params[:lower_lng],
+         params[:upper_lng],
+         '%'+searchParams+'%').order(rank_av: :desc)
       else
         @maps = Map.all
       end
@@ -141,7 +145,7 @@ class MapsController < ApplicationController
                                   :address,
                                   :latitude,
                                   :longitude,
-                                  tags_attributes: [:tag_name, :tag_master, :_destroy])
+                                  tags_attributes: [:id, :tag_name, :tag_master, :_destroy])
     end
 
   def set_marker
