@@ -79,12 +79,20 @@ class MapsController < ApplicationController
 
     def set_map_index(ajax_Judg, m_lat, m_lng, searchParams)
       if (ajax_Judg)
-        @maps = Map.where('latitude > ? AND latitude < ? AND longitude > ? AND longitude < ? AND title like ?',
-         params[:lower_lat],
-         params[:upper_lat],
-         params[:lower_lng],
-         params[:upper_lng],
-         '%'+searchParams+'%').order(rank_av: :desc)
+        sp = searchParams.gsub("　"," ")#全角スペースを半角スペースに変換
+        sp2 = sp.gsub(" ","%,%")#半角スペースをカンマに変換(プレスホルダーの第二引数以降に使用する変数sp2に代入)
+        sp2 = '%'+sp2+'%'
+        sp2 = sp2.split(",")#ひとつの文字列だったsp2をカンマで区切って配列にする
+        ph = " AND title like ?"
+        sp.count(" ").times{
+          ph += " AND title like ?"
+        }
+        @maps = Map.where("latitude > ? AND latitude < ? AND longitude > ? AND longitude < ?#{ph}",
+                           params[:lower_lat],
+                           params[:upper_lat],
+                           params[:lower_lng],
+                           params[:upper_lng],
+                           *sp2 ).order(rank_av: :desc)#引数に配列を渡す時に先頭に*をつけると展開されて要素の数だけ引数の数も増えて渡される
       else
         @maps = Map.all
       end
