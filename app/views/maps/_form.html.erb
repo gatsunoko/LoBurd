@@ -32,10 +32,10 @@
 
   <%= f.fields_for :tags do |sf| %>
     <div class="field">
-      <%= sf.label :tag_name, 'タグ: ' %>
+      <%= sf.label :tag_name, 'ユーザーによる変更禁止のタグ: ' %>
       <%= sf.text_field :tag_name %>
       <%= sf.hidden_field :tag_master, value: true %>
-      <%= sf.check_box :_destroy %>
+      <%= sf.check_box :_destroy, tabindex: -1 %>
       <%= sf.label :_destroy,"削除" %><br>
     </div>
   <% end %>

@@ -22,13 +22,15 @@ class MapsController < ApplicationController
     unless @map.user_id == current_user.id
       redirect_to map_path(@map)
     end
-    @map.tags.build
+    tagcount = Tag.where('map_id = ? AND tag_master = ?', @map.id, true).count
+    tagcount = 3 - tagcount
+    tagcount.times{ @map.tags.build }
   end
 
   def new
     if current_user.user_level > 1
       @map = Map.new
-      @map.tags.build
+      3.times{ @map.tags.build }
     else
       redirect_to maps_path
     end
