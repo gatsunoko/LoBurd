@@ -1,10 +1,16 @@
 <div id="container">
 
 <div class="row">
-  <div id="map_index_search_form" class="form-group col-sm-7">
-    <label class="control-label hidden-xs col-sm-3" style="padding: 0; min-width: 110px;" >キーワードで絞込</label>
-    <div class="col-xs-10 col-sm-6" style="padding-right: 0;">
-      <input type="text" name="name" size="30" id="search_params" placeholder="キーワードで絞込" class="form-control" onchange="search_action(this)">
+  <div id="map_index_name_search_form" class="form-group col-sm-5">
+    <label class="control-label hidden-xs col-sm-1" style="padding: 0; min-width: 70px;" >スポット名</label>
+    <div class="col-xs-10 col-sm-8" style="padding-right: 0;">
+      <input type="text" name="name" size="30" id="name_search_params" placeholder="スポット名" class="form-control" onchange="search_action(this)">
+    </div>
+  </div><%#map_index_search_form%>
+  <div id="map_index_tag_search_form" class="form-group col-sm-5">
+    <label class="control-label hidden-xs col-sm-1" style="padding: 0; min-width: 35px;" >タグ</label>
+    <div class="col-xs-10 col-sm-8" style="padding-right: 0;">
+      <input type="text" name="name" size="30" id="tag_search_params" placeholder="タグ" class="form-control" onchange="search_action(this)">
     </div>
     <div class="col-xs-2 col-sm-2" style="padding: 0;">
       <button class="btn btn-primary"><i class="glyphicon glyphicon glyphicon-search"></i></button>
@@ -47,7 +53,8 @@
                           lower_lat: bounds.getSouthWest().lat(),
                           upper_lng: bounds.getNorthEast().lng(),
                           lower_lng: bounds.getSouthWest().lng(),
-                          search_params: document.getElementById('search_params').value
+                          name_search_params: document.getElementById('name_search_params').value,
+                          tag_search_params: document.getElementById('tag_search_params').value
                           },
                   dataType: "script",
                   success: function(data) {
@@ -70,7 +77,8 @@
                       lower_lat: bounds.getSouthWest().lat(),
                       upper_lng: bounds.getNorthEast().lng(),
                       lower_lng: bounds.getSouthWest().lng(),
-                      search_params: document.getElementById('search_params').value
+                      name_search_params: document.getElementById('name_search_params').value,
+                      tag_search_params: document.getElementById('tag_search_params').value
                       },
               dataType: "script",
               success: function(data) {

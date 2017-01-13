@@ -4,11 +4,11 @@ class MapsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit]
 
   def index
-    set_map_index(false, 35.170915, 136.8815369, "")
+    set_map_index(false, 35.170915, 136.8815369, "", "")
   end
 
   def ajax
-    set_map_index(true, params[:lat], params[:lng], params[:search_params])
+    set_map_index(true, params[:lat], params[:lng], params[:name_search_params], params[:tag_search_params])
   end
 
   def show
@@ -77,22 +77,43 @@ class MapsController < ApplicationController
       @map = Map.find(params[:id])
     end
 
-    def set_map_index(ajax_Judg, m_lat, m_lng, searchParams)
+    def set_map_index(ajax_Judg, m_lat, m_lng, nameSearchParams, tagSearchParams)
       if (ajax_Judg)
-        sp = searchParams.gsub("　"," ")#全角スペースを半角スペースに変換
+        sp = nameSearchParams.gsub("　"," ")#全角スペースを半角スペースに変換
         sp2 = sp.gsub(" ","%,%")#半角スペースをカンマに変換(プレスホルダーの第二引数以降に使用する変数sp2に代入)
         sp2 = '%'+sp2+'%'
         sp2 = sp2.split(",")#ひとつの文字列だったsp2をカンマで区切って配列にする
-        ph = " AND title like ?"
+        ph_title = "title like ?"
         sp.count(" ").times{
-          ph += " AND title like ?"
+          ph_title += " AND title like ?"
         }
-        @maps = Map.where("latitude > ? AND latitude < ? AND longitude > ? AND longitude < ?#{ph}",
-                           params[:lower_lat],
-                           params[:upper_lat],
-                           params[:lower_lng],
-                           params[:upper_lng],
-                           *sp2 ).order(rank_av: :desc)#引数に配列を渡す時に先頭に*をつけると展開されて要素の数だけ引数の数も増えて渡される
+
+        unless tagSearchParams.blank?
+          tg = tagSearchParams.gsub("　"," ")
+          tg2 = tg.gsub(" ","%,%")
+          tg2 = '%'+tg2+'%'
+          tg2 = tg2.split(",")
+          ph_tag = "tags.tag_name like ?"
+          tg.count(" ").times{
+            ph_tag += " OR tags.tag_name like ?"
+          }
+
+          @maps = Map.includes(:tags)
+                      .where("latitude > ? AND latitude < ? AND longitude > ? AND longitude < ? AND ((#{ph_title}) AND (#{ph_tag}))",
+                             params[:lower_lat],
+                             params[:upper_lat],
+                             params[:lower_lng],
+                             params[:upper_lng],
+                             *sp2,*tg2).order(rank_av: :desc).references(:tags)#引数に配列を渡す時に先頭に*をつけると展開されて要素の数だけ引数の数も増えて渡される
+        else
+          @maps = Map.includes(:tags)
+                      .where("latitude > ? AND latitude < ? AND longitude > ? AND longitude < ? AND #{ph_title}",
+                             params[:lower_lat],
+                             params[:upper_lat],
+                             params[:lower_lng],
+                             params[:upper_lng],
+                             *sp2).order(rank_av: :desc).references(:tags)#引数に配列を渡す時に先頭に*をつけると展開されて要素の数だけ引数の数も増えて渡される
+        end
       else
         @maps = Map.all
       end
